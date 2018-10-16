@@ -1,0 +1,47 @@
+{
+    "name": "doctrine/static-website-generator",
+    "description": "Doctrine Static Website Generator",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jonathan H. Wage",
+            "email": "jonwage@gmail.com",
+            "homepage": "https://jwage.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "doctrine/collections": "^1.5",
+        "doctrine/rst-parser": "dev-master",
+        "doctrine/skeleton-mapper": "dev-master",
+        "erusev/parsedown": "^1.7",
+        "symfony/filesystem": "^4.1",
+        "symfony/finder": "^4.1",
+        "symfony/http-kernel": "^4.1",
+        "symfony/routing": "^4.1",
+        "symfony/yaml": "^4.1",
+        "twig/twig": "^2.5"
+    },
+    "require-dev": {
+        "doctrine/coding-standard": "^5.0",
+        "phpstan/phpstan": "^0.10",
+        "phpstan/phpstan-deprecation-rules": "^0.10",
+        "phpstan/phpstan-phpunit": "^0.10",
+        "phpstan/phpstan-strict-rules": "^0.10",
+        "phpunit/phpunit": "^7.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Doctrine\\StaticWebsiteGenerator\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Doctrine\\StaticWebsiteGenerator\\Tests\\": "tests/"
+        }
+    }
+}
