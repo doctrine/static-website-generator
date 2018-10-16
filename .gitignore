@@ -1,2 +1,4 @@
 /vendor
 /.phpcs-cache
+/tests/fixtures/build
+
