@@ -18,6 +18,7 @@ use Doctrine\StaticWebsiteGenerator\Controller\ControllerExecutor;
 use Doctrine\StaticWebsiteGenerator\Controller\ControllerProvider;
 use Doctrine\StaticWebsiteGenerator\Controller\ResponseFactory;
 use Doctrine\StaticWebsiteGenerator\DataSource\DataSourceObjectDataRepository;
+use Doctrine\StaticWebsiteGenerator\Request\RequestCollectionProvider;
 use Doctrine\StaticWebsiteGenerator\Routing\Router;
 use Doctrine\StaticWebsiteGenerator\Site;
 use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileBuilder;
@@ -26,17 +27,21 @@ use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileFilesystemReader;
 use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileParametersFactory;
 use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileRenderer;
 use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileRepository;
+use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileRouteReader;
 use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFilesBuilder;
 use Doctrine\StaticWebsiteGenerator\Tests\Controllers\HomepageController;
+use Doctrine\StaticWebsiteGenerator\Tests\Controllers\UserController;
 use Doctrine\StaticWebsiteGenerator\Tests\DataSources\Users;
 use Doctrine\StaticWebsiteGenerator\Tests\Models\User;
 use Doctrine\StaticWebsiteGenerator\Tests\Repositories\UserRepository;
+use Doctrine\StaticWebsiteGenerator\Tests\Requests\UserRequests;
 use Doctrine\StaticWebsiteGenerator\Twig\RoutingExtension;
 use Doctrine\StaticWebsiteGenerator\Twig\StringTwigRenderer;
 use Parsedown;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+use function assert;
 use function file_exists;
 use function file_get_contents;
 
@@ -58,6 +63,7 @@ class FunctionalTest extends TestCase
 
         $controllerProvider = new ControllerProvider([
             HomepageController::class => new HomepageController($userRepository, $responseFactory),
+            UserController::class => new UserController($userRepository, $responseFactory),
         ]);
         $argumentResolver   = new ArgumentResolver();
 
@@ -78,7 +84,13 @@ class FunctionalTest extends TestCase
                 'path' => '/index.html',
                 'defaults' => [
                     '_controller' => [HomepageController::class, 'index'],
-                    'title' => 'Homepage',
+                ],
+            ],
+            'user' => [
+                'path' => '/user/{username}.html',
+                'defaults' => [
+                    '_controller' => [UserController::class, 'user'],
+                    '_provider' => [UserRequests::class, 'getUsers'],
                 ],
             ],
         ];
@@ -113,9 +125,15 @@ class FunctionalTest extends TestCase
 
         $sourceFileFactory = new SourceFileFactory($router, $sourceFileParametersFactory, $rootDir);
 
-        $sourceFileFilesystemReader = new SourceFileFilesystemReader($rootDir, $sourceFileFactory);
+        $requestCollectionProvider = new RequestCollectionProvider([new UserRequests($userRepository)]);
 
-        $sourceFileRepository = new SourceFileRepository([$sourceFileFilesystemReader]);
+        $sourceFileFilesystemReader = new SourceFileFilesystemReader($rootDir, $sourceFileFactory);
+        $sourceFileRouteReader      = new SourceFileRouteReader($router, $requestCollectionProvider, $sourceFileFactory);
+
+        $sourceFileRepository = new SourceFileRepository([
+            $sourceFileFilesystemReader,
+            $sourceFileRouteReader,
+        ]);
 
         $sourceFilesBuilder = new SourceFilesBuilder($sourceFileBuilder);
 
@@ -123,17 +141,33 @@ class FunctionalTest extends TestCase
 
         $sourceFilesBuilder->buildSourceFiles($sourceFiles);
 
-        $indexPath = $buildPath . '/index.html';
-
-        self::assertTrue(file_exists($indexPath));
-
-        $indexContents = file_get_contents($indexPath);
+        $indexContents = $this->getFileContents($buildPath, 'index.html');
 
         self::assertContains('This is a test file.', $indexContents);
         self::assertContains('Homepage: /index.html', $indexContents);
         self::assertContains('Controller data: This data came from the controller', $indexContents);
         self::assertContains('Request path info: /index.html', $indexContents);
         self::assertContains('User: jwage', $indexContents);
+
+        $jwageContents = $this->getFileContents($buildPath, 'user/jwage.html');
+
+        self::assertContains('jwage', $jwageContents);
+
+        $ocramiusContents = $this->getFileContents($buildPath, 'user/ocramius.html');
+
+        self::assertContains('ocramius', $ocramiusContents);
+    }
+
+    private function getFileContents(string $buildPath, string $file) : string
+    {
+        $path = $buildPath . '/' . $file;
+
+        self::assertTrue(file_exists($path));
+
+        $contents = file_get_contents($path);
+        assert($contents !== false);
+
+        return $contents;
     }
 
     private function createObjectManager() : ObjectManager
