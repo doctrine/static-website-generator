@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9745c4731d8438b44c81ad5951f93b13",
+    "content-hash": "e7f0e1a4dc8db674eb5d096917e3717b",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -707,12 +707,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/rst-parser.git",
-                "reference": "e1956365a0f493429e428af6d73fbd8b1f8b5028"
+                "reference": "922bdb8378362245cc823f6b187afa54d95894f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/rst-parser/zipball/e1956365a0f493429e428af6d73fbd8b1f8b5028",
-                "reference": "e1956365a0f493429e428af6d73fbd8b1f8b5028",
+                "url": "https://api.github.com/repos/doctrine/rst-parser/zipball/922bdb8378362245cc823f6b187afa54d95894f2",
+                "reference": "922bdb8378362245cc823f6b187afa54d95894f2",
                 "shasum": ""
             },
             "require": {
@@ -759,7 +759,7 @@
                 "reStructuredText",
                 "rst"
             ],
-            "time": "2018-10-05T13:33:05+00:00"
+            "time": "2018-10-09T15:34:45+00:00"
         },
         {
             "name": "doctrine/skeleton-mapper",
@@ -767,12 +767,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/skeleton-mapper.git",
-                "reference": "ed27613b4c55a055f18582e17be050defa06fc4b"
+                "reference": "02fcf9d1f36a8e4d8a9addf360664cdc762dc3f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/skeleton-mapper/zipball/ed27613b4c55a055f18582e17be050defa06fc4b",
-                "reference": "ed27613b4c55a055f18582e17be050defa06fc4b",
+                "url": "https://api.github.com/repos/doctrine/skeleton-mapper/zipball/02fcf9d1f36a8e4d8a9addf360664cdc762dc3f9",
+                "reference": "02fcf9d1f36a8e4d8a9addf360664cdc762dc3f9",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +818,7 @@
                 "object",
                 "persistence"
             ],
-            "time": "2018-10-15T21:32:33+00:00"
+            "time": "2018-10-17T01:58:30+00:00"
         },
         {
             "name": "erusev/parsedown",

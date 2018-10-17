@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Doctrine\StaticWebsiteGenerator\Tests\DataSources;
 
-use Doctrine\StaticWebsiteGenerator\DataSource\DataSource;
+use Doctrine\SkeletonMapper\DataSource\DataSource;
 
 class Users implements DataSource
 {

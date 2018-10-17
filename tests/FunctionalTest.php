@@ -6,6 +6,7 @@ namespace Doctrine\StaticWebsiteGenerator\Tests;
 
 use Doctrine\Common\EventManager;
 use Doctrine\RST\Parser as RSTParser;
+use Doctrine\SkeletonMapper\DataSource\DataSourceObjectDataRepository;
 use Doctrine\SkeletonMapper\Hydrator\BasicObjectHydrator;
 use Doctrine\SkeletonMapper\Mapping\ClassMetadataFactory;
 use Doctrine\SkeletonMapper\Mapping\ClassMetadataInstantiator;
@@ -17,7 +18,6 @@ use Doctrine\SkeletonMapper\Persister\ObjectPersisterFactory;
 use Doctrine\StaticWebsiteGenerator\Controller\ControllerExecutor;
 use Doctrine\StaticWebsiteGenerator\Controller\ControllerProvider;
 use Doctrine\StaticWebsiteGenerator\Controller\ResponseFactory;
-use Doctrine\StaticWebsiteGenerator\DataSource\DataSourceObjectDataRepository;
 use Doctrine\StaticWebsiteGenerator\Request\RequestCollectionProvider;
 use Doctrine\StaticWebsiteGenerator\Routing\Router;
 use Doctrine\StaticWebsiteGenerator\Site;
