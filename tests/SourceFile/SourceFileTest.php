@@ -72,19 +72,6 @@ class SourceFileTest extends TestCase
         self::assertTrue($this->sourceFile->isTwig());
     }
 
-    public function testIsLayoutNeeded() : void
-    {
-        $sourceFile = new SourceFile(
-            '/tmp/test.jpg',
-            'test',
-            new SourceFileParameters(['url' => '/test.jpg'])
-        );
-
-        self::assertFalse($sourceFile->isLayoutNeeded());
-
-        self::assertTrue($this->sourceFile->isLayoutNeeded());
-    }
-
     public function isApiDocs() : void
     {
         $sourceFile = new SourceFile(

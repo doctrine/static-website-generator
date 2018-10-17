@@ -13,14 +13,6 @@ class SourceFileParametersFactory
     {
         $parameters = $this->extractParameters($contents);
 
-        if (! isset($parameters['layout'])) {
-            $parameters['layout'] = 'default';
-        }
-
-        if (! isset($parameters['title'])) {
-            $parameters['title'] = '';
-        }
-
         return new SourceFileParameters($parameters);
     }
 
