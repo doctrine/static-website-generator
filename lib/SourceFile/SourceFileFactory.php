@@ -25,16 +25,16 @@ class SourceFileFactory
     private $sourceFileParametersFactory;
 
     /** @var string */
-    private $rootDir;
+    private $sourceDir;
 
     public function __construct(
         Router $router,
         SourceFileParametersFactory $sourceFileParametersFactory,
-        string $rootDir
+        string $sourceDir
     ) {
         $this->router                      = $router;
         $this->sourceFileParametersFactory = $sourceFileParametersFactory;
-        $this->rootDir                     = $rootDir;
+        $this->sourceDir                   = $sourceDir;
     }
 
     public function createSourceFileFromPath(
@@ -93,7 +93,7 @@ class SourceFileFactory
 
     private function buildWritePath(string $buildDir, string $sourcePath) : string
     {
-        $writePath = $buildDir . str_replace($this->rootDir . '/source', '', $sourcePath);
+        $writePath = $buildDir . str_replace($this->sourceDir, '', $sourcePath);
 
         $extension = pathinfo($sourcePath, PATHINFO_EXTENSION);
 

@@ -42,10 +42,6 @@ class SourceFileRendererTest extends TestCase
             ->willReturn($date);
 
         $sourceFile->expects(self::once())
-            ->method('getSourcePath')
-            ->willReturn('/tmp/source-path.md');
-
-        $sourceFile->expects(self::once())
             ->method('getParameters')
             ->willReturn($sourceFileParameters);
 
@@ -73,7 +69,6 @@ class SourceFileRendererTest extends TestCase
                 'page' => [
                     'date' => $date,
                     '_controller' => ['TestController', 'index'],
-                    'sourceFile' => '/tmp/source-path.md',
                 ],
                 'site' => $this->site,
                 'test' => true,
@@ -96,10 +91,6 @@ class SourceFileRendererTest extends TestCase
         $sourceFile->expects(self::once())
             ->method('getDate')
             ->willReturn($date);
-
-        $sourceFile->expects(self::once())
-            ->method('getSourcePath')
-            ->willReturn('/tmp/source-path.md');
 
         $sourceFile->expects(self::once())
             ->method('getParameters')
@@ -129,7 +120,6 @@ class SourceFileRendererTest extends TestCase
                 'page' => [
                     'date' => $date,
                     '_controller' => ['TestController', 'index'],
-                    'sourceFile' => '/tmp/source-path.md',
                 ],
                 'site' => $this->site,
                 'test' => true,
@@ -151,7 +141,6 @@ class SourceFileRendererTest extends TestCase
             $this->controllerExecutor,
             $this->twigRenderer,
             $this->site,
-            '',
             ''
         );
     }
