@@ -11,16 +11,16 @@ use function is_string;
 class SourceFileFilesystemReader implements SourceFileReader
 {
     /** @var string */
-    private $rootDir;
+    private $sourceDir;
 
     /** @var SourceFileFactory */
     private $sourceFileFactory;
 
     public function __construct(
-        string $rootDir,
+        string $sourceDir,
         SourceFileFactory $sourceFileFactory
     ) {
-        $this->rootDir           = $rootDir;
+        $this->sourceDir         = $sourceDir;
         $this->sourceFileFactory = $sourceFileFactory;
     }
 
@@ -46,7 +46,7 @@ class SourceFileFilesystemReader implements SourceFileReader
         $finder = new Finder();
 
         $finder
-            ->in($this->rootDir . '/source')
+            ->in($this->sourceDir)
             ->files();
 
         return $finder;

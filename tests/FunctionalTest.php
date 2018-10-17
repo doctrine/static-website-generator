@@ -49,10 +49,10 @@ class FunctionalTest extends TestCase
 {
     public function testBuild() : void
     {
-        $rootDir       = __DIR__ . '/fixtures';
-        $sourcePath    = $rootDir . '/source';
-        $templatesPath = $rootDir . '/templates';
-        $buildPath     = $rootDir . '/build';
+        $rootDir      = __DIR__ . '/fixtures';
+        $sourceDir    = $rootDir . '/source';
+        $templatesDir = $rootDir . '/templates';
+        $buildDir     = $rootDir . '/build';
 
         $responseFactory = new ResponseFactory();
 
@@ -98,14 +98,13 @@ class FunctionalTest extends TestCase
         $router = new Router($routes, $site);
 
         $routingExtension = new RoutingExtension($router);
-        $twigRenderer     = new StringTwigRenderer($templatesPath, [$routingExtension]);
+        $twigRenderer     = new StringTwigRenderer($templatesDir, [$routingExtension]);
 
         $sourceFileRenderer = new SourceFileRenderer(
             $controllerExecutor,
             $twigRenderer,
             $site,
-            $sourcePath,
-            $templatesPath
+            $templatesDir
         );
 
         $filesystem = new Filesystem();
@@ -123,11 +122,11 @@ class FunctionalTest extends TestCase
 
         $sourceFileParametersFactory = new SourceFileParametersFactory();
 
-        $sourceFileFactory = new SourceFileFactory($router, $sourceFileParametersFactory, $rootDir);
+        $sourceFileFactory = new SourceFileFactory($router, $sourceFileParametersFactory, $sourceDir);
 
         $requestCollectionProvider = new RequestCollectionProvider([new UserRequests($userRepository)]);
 
-        $sourceFileFilesystemReader = new SourceFileFilesystemReader($rootDir, $sourceFileFactory);
+        $sourceFileFilesystemReader = new SourceFileFilesystemReader($sourceDir, $sourceFileFactory);
         $sourceFileRouteReader      = new SourceFileRouteReader($router, $requestCollectionProvider, $sourceFileFactory);
 
         $sourceFileRepository = new SourceFileRepository([
@@ -137,11 +136,11 @@ class FunctionalTest extends TestCase
 
         $sourceFilesBuilder = new SourceFilesBuilder($sourceFileBuilder);
 
-        $sourceFiles = $sourceFileRepository->getSourceFiles($buildPath);
+        $sourceFiles = $sourceFileRepository->getSourceFiles($buildDir);
 
         $sourceFilesBuilder->buildSourceFiles($sourceFiles);
 
-        $indexContents = $this->getFileContents($buildPath, 'index.html');
+        $indexContents = $this->getFileContents($buildDir, 'index.html');
 
         self::assertContains('This is a test file.', $indexContents);
         self::assertContains('Homepage: /index.html', $indexContents);
@@ -149,18 +148,18 @@ class FunctionalTest extends TestCase
         self::assertContains('Request path info: /index.html', $indexContents);
         self::assertContains('User: jwage', $indexContents);
 
-        $jwageContents = $this->getFileContents($buildPath, 'user/jwage.html');
+        $jwageContents = $this->getFileContents($buildDir, 'user/jwage.html');
 
         self::assertContains('jwage', $jwageContents);
 
-        $ocramiusContents = $this->getFileContents($buildPath, 'user/ocramius.html');
+        $ocramiusContents = $this->getFileContents($buildDir, 'user/ocramius.html');
 
         self::assertContains('ocramius', $ocramiusContents);
     }
 
-    private function getFileContents(string $buildPath, string $file) : string
+    private function getFileContents(string $buildDir, string $file) : string
     {
-        $path = $buildPath . '/' . $file;
+        $path = $buildDir . '/' . $file;
 
         self::assertTrue(file_exists($path));
 

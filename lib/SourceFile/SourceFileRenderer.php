@@ -13,7 +13,6 @@ use function file_exists;
 use function file_get_contents;
 use function preg_match_all;
 use function sprintf;
-use function str_replace;
 
 class SourceFileRenderer
 {
@@ -27,22 +26,17 @@ class SourceFileRenderer
     private $site;
 
     /** @var string */
-    private $sourcePath;
-
-    /** @var string */
     private $templatesPath;
 
     public function __construct(
         ControllerExecutor $controllerExecutor,
         TwigRenderer $twigRenderer,
         Site $site,
-        string $sourcePath,
         string $templatesPath
     ) {
         $this->controllerExecutor = $controllerExecutor;
         $this->twigRenderer       = $twigRenderer;
         $this->site               = $site;
-        $this->sourcePath         = $sourcePath;
         $this->templatesPath      = $templatesPath;
     }
 
@@ -89,7 +83,6 @@ class SourceFileRenderer
     {
         return $sourceFile->getParameters()->getAll() + [
             'date' => $sourceFile->getDate(),
-            'sourceFile' => str_replace($this->sourcePath, '/source', $sourceFile->getSourcePath()),
         ];
     }
 
