@@ -14,7 +14,7 @@ use function md5;
 class StringTwigRenderer implements TwigRenderer
 {
     /** @var string */
-    private $templatesPath;
+    private $templatesDir;
 
     /** @var AbstractExtension[] */
     private $extensions;
@@ -23,11 +23,11 @@ class StringTwigRenderer implements TwigRenderer
      * @param AbstractExtension[] $extensions
      */
     public function __construct(
-        string $templatesPath,
+        string $templatesDir,
         array $extensions
     ) {
-        $this->templatesPath = $templatesPath;
-        $this->extensions    = $extensions;
+        $this->templatesDir = $templatesDir;
+        $this->extensions   = $extensions;
     }
 
     /**
@@ -41,7 +41,7 @@ class StringTwigRenderer implements TwigRenderer
 
         $chainLoader = new ChainLoader([
             $loader,
-            new FilesystemLoader($this->templatesPath),
+            new FilesystemLoader($this->templatesDir),
         ]);
 
         $twig = new Environment($chainLoader, ['strict_variables' => true]);

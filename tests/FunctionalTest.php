@@ -106,7 +106,8 @@ class FunctionalTest extends TestCase
             $controllerExecutor,
             $twigRenderer,
             $site,
-            $templatesDir
+            $templatesDir,
+            $sourceDir
         );
 
         $filesystem = new Filesystem();
@@ -151,6 +152,9 @@ class FunctionalTest extends TestCase
         self::assertContains('Controller data: This data came from the controller', $indexContents);
         self::assertContains('Request path info: /index.html', $indexContents);
         self::assertContains('User: jwage', $indexContents);
+        self::assertContains('Source File URL: /index.html', $indexContents);
+        self::assertContains('Source Path: /index.md', $indexContents);
+        self::assertContains('Request Pathinfo: /index.html', $indexContents);
 
         $jwageContents = $this->getFileContents($buildDir, 'user/jwage.html');
 

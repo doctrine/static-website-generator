@@ -13,6 +13,7 @@ use function file_exists;
 use function file_get_contents;
 use function preg_match_all;
 use function sprintf;
+use function str_replace;
 
 class SourceFileRenderer
 {
@@ -26,18 +27,23 @@ class SourceFileRenderer
     private $site;
 
     /** @var string */
-    private $templatesPath;
+    private $templatesDir;
+
+    /** @var string */
+    private $sourceDir;
 
     public function __construct(
         ControllerExecutor $controllerExecutor,
         TwigRenderer $twigRenderer,
         Site $site,
-        string $templatesPath
+        string $templatesDir,
+        string $sourceDir
     ) {
         $this->controllerExecutor = $controllerExecutor;
         $this->twigRenderer       = $twigRenderer;
         $this->site               = $site;
-        $this->templatesPath      = $templatesPath;
+        $this->templatesDir       = $templatesDir;
+        $this->sourceDir          = $sourceDir;
     }
 
     public function render(SourceFile $sourceFile, string $contents) : string
@@ -57,7 +63,7 @@ class SourceFileRenderer
             $controllerTemplate = $controllerResult->getTemplate();
 
             if ($controllerTemplate !== '') {
-                $templatePath = $this->templatesPath . $controllerTemplate;
+                $templatePath = $this->templatesDir . $controllerTemplate;
 
                 if (! file_exists($templatePath)) {
                     throw new InvalidArgumentException(
@@ -83,7 +89,15 @@ class SourceFileRenderer
     {
         return $sourceFile->getParameters()->getAll() + [
             'date' => $sourceFile->getDate(),
+            'sourceFile' => $sourceFile,
+            'sourcePath' => $this->getSourceRelativePath($sourceFile),
+            'request' => $sourceFile->getRequest(),
         ];
+    }
+
+    public function getSourceRelativePath(SourceFile $sourceFile) : string
+    {
+        return str_replace($this->sourceDir, '', $sourceFile->getSourcePath());
     }
 
     private function prepareTemplate(SourceFile $sourceFile, string $contents) : string

@@ -14,6 +14,7 @@ use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileRenderer;
 use Doctrine\StaticWebsiteGenerator\Twig\TwigRenderer;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
 
 class SourceFileRendererTest extends TestCase
 {
@@ -34,12 +35,17 @@ class SourceFileRendererTest extends TestCase
         $date                 = new DateTimeImmutable('2018-09-01');
         $sourceFile           = $this->createMock(SourceFile::class);
         $sourceFileParameters = new SourceFileParameters(['_controller' => ['TestController', 'index']]);
+        $request              = $this->createMock(Request::class);
         $response             = new Response(['test' => true]);
         $contents             = 'Test';
 
         $sourceFile->expects(self::once())
             ->method('getDate')
             ->willReturn($date);
+
+        $sourceFile->expects(self::once())
+            ->method('getSourcePath')
+            ->willReturn('/test/source/index.md');
 
         $sourceFile->expects(self::once())
             ->method('getParameters')
@@ -53,6 +59,10 @@ class SourceFileRendererTest extends TestCase
             ->method('getParameter')
             ->with('layout')
             ->willReturn('default');
+
+        $sourceFile->expects(self::once())
+            ->method('getRequest')
+            ->willReturn($request);
 
         $sourceFile->expects(self::once())
             ->method('hasController')
@@ -69,6 +79,9 @@ class SourceFileRendererTest extends TestCase
                 'page' => [
                     'date' => $date,
                     '_controller' => ['TestController', 'index'],
+                    'sourceFile' => $sourceFile,
+                    'sourcePath' => '/index.md',
+                    'request' => $request,
                 ],
                 'site' => $this->site,
                 'test' => true,
@@ -85,12 +98,17 @@ class SourceFileRendererTest extends TestCase
         $date                 = new DateTimeImmutable('2018-09-01');
         $sourceFile           = $this->createMock(SourceFile::class);
         $sourceFileParameters = new SourceFileParameters(['_controller' => ['TestController', 'index']]);
+        $request              = $this->createMock(Request::class);
         $response             = new Response(['test' => true]);
         $contents             = '{% block content %}Testing{% endblock %}';
 
         $sourceFile->expects(self::once())
             ->method('getDate')
             ->willReturn($date);
+
+        $sourceFile->expects(self::once())
+            ->method('getSourcePath')
+            ->willReturn('/test/source/index.md');
 
         $sourceFile->expects(self::once())
             ->method('getParameters')
@@ -104,6 +122,10 @@ class SourceFileRendererTest extends TestCase
             ->method('getParameter')
             ->with('layout')
             ->willReturn('default');
+
+        $sourceFile->expects(self::once())
+            ->method('getRequest')
+            ->willReturn($request);
 
         $sourceFile->expects(self::once())
             ->method('hasController')
@@ -120,6 +142,9 @@ class SourceFileRendererTest extends TestCase
                 'page' => [
                     'date' => $date,
                     '_controller' => ['TestController', 'index'],
+                    'sourceFile' => $sourceFile,
+                    'sourcePath' => '/index.md',
+                    'request' => $request,
                 ],
                 'site' => $this->site,
                 'test' => true,
@@ -141,7 +166,8 @@ class SourceFileRendererTest extends TestCase
             $this->controllerExecutor,
             $this->twigRenderer,
             $this->site,
-            ''
+            '/test/templates',
+            '/test/source'
         );
     }
 }
