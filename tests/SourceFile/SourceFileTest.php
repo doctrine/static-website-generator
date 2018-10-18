@@ -33,32 +33,6 @@ class SourceFileTest extends TestCase
         self::assertEquals('md', $this->sourceFile->getExtension());
     }
 
-    public function testIsMarkdown() : void
-    {
-        $sourceFile = new SourceFile(
-            '/tmp/test.rst',
-            'test',
-            new SourceFileParameters(['url' => '/2019/01/01/test.html'])
-        );
-
-        self::assertFalse($sourceFile->isMarkdown());
-
-        self::assertTrue($this->sourceFile->isMarkdown());
-    }
-
-    public function testIsRestructuredText() : void
-    {
-        $sourceFile = new SourceFile(
-            '/tmp/test.rst',
-            'test',
-            new SourceFileParameters(['url' => '/2019/01/01/test.html'])
-        );
-
-        self::assertTrue($sourceFile->isRestructuredText());
-
-        self::assertFalse($this->sourceFile->isRestructuredText());
-    }
-
     public function testIsTwig() : void
     {
         $sourceFile = new SourceFile(
@@ -83,19 +57,6 @@ class SourceFileTest extends TestCase
         self::assertFalse($sourceFile->isLayoutNeeded());
 
         self::assertTrue($this->sourceFile->isLayoutNeeded());
-    }
-
-    public function isApiDocs() : void
-    {
-        $sourceFile = new SourceFile(
-            '/tmp/api/test.html',
-            'test',
-            new SourceFileParameters(['url' => '/api/test.html'])
-        );
-
-        self::assertTrue($sourceFile->isApiDocs());
-
-        self::assertFalse($this->sourceFile->isApiDocs());
     }
 
     public function testGetContents() : void

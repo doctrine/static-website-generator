@@ -21,6 +21,8 @@ use Doctrine\StaticWebsiteGenerator\Controller\ResponseFactory;
 use Doctrine\StaticWebsiteGenerator\Request\RequestCollectionProvider;
 use Doctrine\StaticWebsiteGenerator\Routing\Router;
 use Doctrine\StaticWebsiteGenerator\Site;
+use Doctrine\StaticWebsiteGenerator\SourceFile\Converters\MarkdownConverter;
+use Doctrine\StaticWebsiteGenerator\SourceFile\Converters\ReStructuredTextConverter;
 use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileBuilder;
 use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileFactory;
 use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileFilesystemReader;
@@ -116,8 +118,10 @@ class FunctionalTest extends TestCase
         $sourceFileBuilder = new SourceFileBuilder(
             $sourceFileRenderer,
             $filesystem,
-            $parsedown,
-            $rstParser
+            [
+                new MarkdownConverter($parsedown),
+                new ReStructuredTextConverter($rstParser),
+            ]
         );
 
         $sourceFileParametersFactory = new SourceFileParametersFactory();

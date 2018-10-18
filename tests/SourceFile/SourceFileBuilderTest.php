@@ -6,6 +6,8 @@ namespace Doctrine\StaticWebsiteGenerator\Tests\SourceFile;
 
 use Doctrine\RST\Document;
 use Doctrine\RST\Parser as RSTParser;
+use Doctrine\StaticWebsiteGenerator\SourceFile\Converters\MarkdownConverter;
+use Doctrine\StaticWebsiteGenerator\SourceFile\Converters\ReStructuredTextConverter;
 use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFile;
 use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileBuilder;
 use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileRenderer;
@@ -40,8 +42,8 @@ class SourceFileBuilderTest extends TestCase
             ->willReturn('test markdown');
 
         $sourceFile->expects(self::once())
-            ->method('isMarkdown')
-            ->willReturn(true);
+            ->method('getExtension')
+            ->willReturn('md');
 
         $this->parsedown->expects(self::once())
             ->method('text')
@@ -78,12 +80,8 @@ class SourceFileBuilderTest extends TestCase
             ->willReturn('test restructured text');
 
         $sourceFile->expects(self::once())
-            ->method('isMarkdown')
-            ->willReturn(false);
-
-        $sourceFile->expects(self::once())
-            ->method('isRestructuredText')
-            ->willReturn(true);
+            ->method('getExtension')
+            ->willReturn('rst');
 
         $document = $this->createMock(Document::class);
 
@@ -126,12 +124,8 @@ class SourceFileBuilderTest extends TestCase
             ->willReturn('test restructured text');
 
         $sourceFile->expects(self::once())
-            ->method('isMarkdown')
-            ->willReturn(false);
-
-        $sourceFile->expects(self::once())
-            ->method('isRestructuredText')
-            ->willReturn(true);
+            ->method('getExtension')
+            ->willReturn('rst');
 
         $document = $this->createMock(Document::class);
 
@@ -173,8 +167,10 @@ class SourceFileBuilderTest extends TestCase
         $this->sourceFileBuilder = new SourceFileBuilder(
             $this->sourceFileRenderer,
             $this->filesystem,
-            $this->parsedown,
-            $this->rstParser
+            [
+                new MarkdownConverter($this->parsedown),
+                new ReStructuredTextConverter($this->rstParser),
+            ]
         );
     }
 }

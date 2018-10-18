@@ -13,7 +13,6 @@ use function in_array;
 use function pathinfo;
 use function preg_replace;
 use function sprintf;
-use function strpos;
 use function strtotime;
 
 class SourceFile
@@ -21,10 +20,6 @@ class SourceFile
     private const TWIG_EXTENSIONS = ['html', 'md', 'rst', 'xml', 'txt'];
 
     private const NEEDS_LAYOUT_EXTENSIONS = ['html', 'md', 'rst'];
-
-    private const MARKDOWN_EXTENSION = 'md';
-
-    private const RESTRUCTURED_TEXT_EXTENSION = 'rst';
 
     /** @var string */
     private $sourcePath;
@@ -77,29 +72,14 @@ class SourceFile
         return pathinfo($this->sourcePath, PATHINFO_EXTENSION);
     }
 
-    public function isMarkdown() : bool
-    {
-        return $this->getExtension() === self::MARKDOWN_EXTENSION;
-    }
-
-    public function isRestructuredText() : bool
-    {
-        return $this->getExtension() === self::RESTRUCTURED_TEXT_EXTENSION;
-    }
-
     public function isTwig() : bool
     {
-        return in_array($this->getExtension(), self::TWIG_EXTENSIONS, true) && $this->isApiDocs() === false;
+        return in_array($this->getExtension(), self::TWIG_EXTENSIONS, true);
     }
 
     public function isLayoutNeeded() : bool
     {
         return in_array($this->getExtension(), self::NEEDS_LAYOUT_EXTENSIONS, true);
-    }
-
-    public function isApiDocs() : bool
-    {
-        return strpos($this->getUrl(), '/api/') === 0;
     }
 
     public function getContents() : string

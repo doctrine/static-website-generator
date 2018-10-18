@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Doctrine\StaticWebsiteGenerator\SourceFile;
 
-use Doctrine\RST\Parser as RSTParser;
-use Parsedown;
 use Symfony\Component\Filesystem\Filesystem;
 
 class SourceFileBuilder
@@ -16,50 +14,49 @@ class SourceFileBuilder
     /** @var Filesystem */
     private $filesystem;
 
-    /** @var Parsedown */
-    private $parsedown;
+    /** @var SourceFileConverter[] */
+    private $converters;
 
-    /** @var RSTParser */
-    private $rstParser;
-
+    /**
+     * @param SourceFileConverter[] $converters
+     */
     public function __construct(
         SourceFileRenderer $sourceFileRenderer,
         Filesystem $filesystem,
-        Parsedown $parsedown,
-        RSTParser $rstParser
+        array $converters
     ) {
         $this->sourceFileRenderer = $sourceFileRenderer;
         $this->filesystem         = $filesystem;
-        $this->parsedown          = $parsedown;
-        $this->rstParser          = $rstParser;
+
+        foreach ($converters as $converter) {
+            foreach ($converter->getExtensions() as $extension) {
+                $this->converters[$extension] = $converter;
+            }
+        }
     }
 
     public function buildFile(SourceFile $sourceFile) : void
     {
-        $parsedFile = $this->parseFile($sourceFile);
+        $renderedFile = $this->convertSourceFile($sourceFile);
 
         if ($sourceFile->isTwig()) {
-            $parsedFile = $this->sourceFileRenderer->render(
+            $renderedFile = $this->sourceFileRenderer->render(
                 $sourceFile,
-                $parsedFile
+                $renderedFile
             );
         }
 
-        $this->filesystem->dumpFile($sourceFile->getParameter('writePath'), $parsedFile);
+        $this->filesystem->dumpFile($sourceFile->getParameter('writePath'), $renderedFile);
     }
 
-    private function parseFile(SourceFile $sourceFile) : string
+    private function convertSourceFile(SourceFile $sourceFile) : string
     {
-        $contents = $sourceFile->getContents();
+        $extension = $sourceFile->getExtension();
 
-        if ($sourceFile->isMarkdown()) {
-            return $this->parsedown->text($contents);
+        if (isset($this->converters[$extension])) {
+            return $this->converters[$extension]->convertSourceFile($sourceFile);
         }
 
-        if ($sourceFile->isRestructuredText()) {
-            return $this->rstParser->parse($contents)->render();
-        }
-
-        return $contents;
+        return $sourceFile->getContents();
     }
 }
