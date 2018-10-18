@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Doctrine\StaticWebsiteGenerator\Tests\SourceFile;
 
+use DateTimeImmutable;
 use Doctrine\StaticWebsiteGenerator\Controller\ControllerExecutor;
 use Doctrine\StaticWebsiteGenerator\Controller\Response;
 use Doctrine\StaticWebsiteGenerator\Site;
@@ -30,14 +31,28 @@ class SourceFileRendererTest extends TestCase
 
     public function testRenderWithContentTwigBlock() : void
     {
+        $date                 = new DateTimeImmutable('2018-09-01');
         $sourceFile           = $this->createMock(SourceFile::class);
         $sourceFileParameters = new SourceFileParameters(['_controller' => ['TestController', 'index']]);
         $response             = new Response(['test' => true]);
         $contents             = 'Test';
 
         $sourceFile->expects(self::once())
+            ->method('getDate')
+            ->willReturn($date);
+
+        $sourceFile->expects(self::once())
             ->method('getParameters')
             ->willReturn($sourceFileParameters);
+
+        $sourceFile->expects(self::once())
+            ->method('isLayoutNeeded')
+            ->willReturn(true);
+
+        $sourceFile->expects(self::once())
+            ->method('getParameter')
+            ->with('layout')
+            ->willReturn('default');
 
         $sourceFile->expects(self::once())
             ->method('hasController')
@@ -50,8 +65,9 @@ class SourceFileRendererTest extends TestCase
 
         $this->twigRenderer->expects(self::once())
             ->method('render')
-            ->with('Test', [
+            ->with('{% extends "layouts/default.html.twig" %}{% block content %}Test{% endblock %}', [
                 'page' => [
+                    'date' => $date,
                     '_controller' => ['TestController', 'index'],
                 ],
                 'site' => $this->site,
@@ -66,14 +82,28 @@ class SourceFileRendererTest extends TestCase
 
     public function testRenderWithoutContentTwigBlock() : void
     {
+        $date                 = new DateTimeImmutable('2018-09-01');
         $sourceFile           = $this->createMock(SourceFile::class);
         $sourceFileParameters = new SourceFileParameters(['_controller' => ['TestController', 'index']]);
         $response             = new Response(['test' => true]);
         $contents             = '{% block content %}Testing{% endblock %}';
 
         $sourceFile->expects(self::once())
+            ->method('getDate')
+            ->willReturn($date);
+
+        $sourceFile->expects(self::once())
             ->method('getParameters')
             ->willReturn($sourceFileParameters);
+
+        $sourceFile->expects(self::once())
+            ->method('isLayoutNeeded')
+            ->willReturn(true);
+
+        $sourceFile->expects(self::once())
+            ->method('getParameter')
+            ->with('layout')
+            ->willReturn('default');
 
         $sourceFile->expects(self::once())
             ->method('hasController')
@@ -86,8 +116,9 @@ class SourceFileRendererTest extends TestCase
 
         $this->twigRenderer->expects(self::once())
             ->method('render')
-            ->with('{% block content %}Testing{% endblock %}', [
+            ->with('{% extends "layouts/default.html.twig" %}{% block content %}Testing{% endblock %}', [
                 'page' => [
+                    'date' => $date,
                     '_controller' => ['TestController', 'index'],
                 ],
                 'site' => $this->site,

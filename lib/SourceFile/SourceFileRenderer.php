@@ -11,6 +11,7 @@ use InvalidArgumentException;
 use function assert;
 use function file_exists;
 use function file_get_contents;
+use function preg_match_all;
 use function sprintf;
 
 class SourceFileRenderer
@@ -41,7 +42,7 @@ class SourceFileRenderer
 
     public function render(SourceFile $sourceFile, string $contents) : string
     {
-        $pageParameters = $sourceFile->getParameters()->getAll();
+        $pageParameters = $this->preparePageParameters($sourceFile);
 
         $parameters = [
             'page' => $pageParameters,
@@ -70,6 +71,35 @@ class SourceFileRenderer
 
         assert($contents !== false);
 
-        return $this->twigRenderer->render($contents, $parameters);
+        $template = $this->prepareTemplate($sourceFile, $contents);
+
+        return $this->twigRenderer->render($template, $parameters);
+    }
+
+    /**
+     * @return mixed[]
+     */
+    private function preparePageParameters(SourceFile $sourceFile) : array
+    {
+        return $sourceFile->getParameters()->getAll() + [
+            'date' => $sourceFile->getDate(),
+        ];
+    }
+
+    private function prepareTemplate(SourceFile $sourceFile, string $contents) : string
+    {
+        if ($sourceFile->isLayoutNeeded()) {
+            if ($contents !== '') {
+                $regex = '/{%\s+block\s+(\w+)\s+%}(.*?){%\s+endblock\s+%}/si';
+
+                if (preg_match_all($regex, $contents, $matches) === 0) {
+                    $contents = '{% block content %}' . $contents . '{% endblock %}';
+                }
+            }
+
+            $contents = '{% extends "layouts/' . $sourceFile->getParameter('layout') . '.html.twig" %}' . $contents;
+        }
+
+        return $contents;
     }
 }
