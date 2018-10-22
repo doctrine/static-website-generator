@@ -170,7 +170,8 @@ class SourceFileBuilderTest extends TestCase
             [
                 new MarkdownConverter($this->parsedown),
                 new ReStructuredTextConverter($this->rstParser),
-            ]
+            ],
+            []
         );
     }
 }

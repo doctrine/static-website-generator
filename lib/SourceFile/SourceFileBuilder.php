@@ -17,13 +17,17 @@ class SourceFileBuilder
     /** @var SourceFileConverter[] */
     private $converters;
 
+    /** @var string */
+    private $nonRenderablePatterns = [];
+
     /**
      * @param SourceFileConverter[] $converters
      */
     public function __construct(
         SourceFileRenderer $sourceFileRenderer,
         Filesystem $filesystem,
-        array $converters
+        array $converters,
+        array $nonRenderablePatterns
     ) {
         $this->sourceFileRenderer = $sourceFileRenderer;
         $this->filesystem         = $filesystem;
@@ -33,13 +37,15 @@ class SourceFileBuilder
                 $this->converters[$extension] = $converter;
             }
         }
+
+        $this->nonRenderablePatterns = $nonRenderablePatterns;
     }
 
     public function buildFile(SourceFile $sourceFile) : void
     {
         $renderedFile = $this->convertSourceFile($sourceFile);
 
-        if ($sourceFile->isTwig()) {
+        if ($this->isSourceFileRenderable($sourceFile)) {
             $renderedFile = $this->sourceFileRenderer->render(
                 $sourceFile,
                 $renderedFile
@@ -58,5 +64,20 @@ class SourceFileBuilder
         }
 
         return $sourceFile->getContents();
+    }
+
+    private function isSourceFileRenderable(SourceFile $sourceFile) : bool
+    {
+        if (!$sourceFile->isTwig()) {
+            return false;
+        }
+
+        foreach ($this->nonRenderablePatterns as $nonRenderablePattern) {
+            if (preg_match($nonRenderablePattern, $sourceFile->getSourcePath()) > 0) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

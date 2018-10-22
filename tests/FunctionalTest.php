@@ -122,7 +122,8 @@ class FunctionalTest extends TestCase
             [
                 new MarkdownConverter($parsedown),
                 new ReStructuredTextConverter($rstParser),
-            ]
+            ],
+            ['/\/api\//']
         );
 
         $sourceFileParametersFactory = new SourceFileParametersFactory();
@@ -155,6 +156,11 @@ class FunctionalTest extends TestCase
         self::assertContains('Source File URL: /index.html', $indexContents);
         self::assertContains('Source Path: /index.md', $indexContents);
         self::assertContains('Request Pathinfo: /index.html', $indexContents);
+        self::assertContains('Page Title: Test Title', $indexContents);
+
+        $apiIndexContents = $this->getFileContents($buildDir, 'api/index.html');
+
+        self::assertSame('This should not be rendered by Twig!', trim($apiIndexContents));
 
         $jwageContents = $this->getFileContents($buildDir, 'user/jwage.html');
 

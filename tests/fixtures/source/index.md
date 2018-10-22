@@ -1,3 +1,7 @@
+---
+title: Test Title
+---
+
 Tests
 =====
 
@@ -16,3 +20,5 @@ Source File URL: {{ page.sourceFile.url }}
 Source Path: {{ page.sourcePath }}
 
 Request Pathinfo: {{ page.request.pathinfo }}
+
+Page Title: {{ page.title }}
