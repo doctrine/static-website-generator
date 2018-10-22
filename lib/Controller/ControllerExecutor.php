@@ -28,7 +28,13 @@ class ControllerExecutor
 
     public function execute(SourceFile $sourceFile) : Response
     {
-        [$className, $methodName] = $sourceFile->getController();
+        $controller = $sourceFile->getController();
+
+        if ($controller === null) {
+            throw new RuntimeException('SourceFile::getController() should not return null here.');
+        }
+
+        [$className, $methodName] = $controller;
 
         $controller = $this->controllerProvider->getController($className);
 

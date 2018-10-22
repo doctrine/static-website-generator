@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Doctrine\StaticWebsiteGenerator\SourceFile;
 
 use DateTimeImmutable;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use const PATHINFO_EXTENSION;
 use function count;
@@ -127,6 +128,12 @@ class SourceFile
 
     private function stripFileParameters(string $contents) : string
     {
-        return preg_replace('/^\s*(?:---[\s]*[\r\n]+)(.*?)(?:---[\s]*[\r\n]+)(.*?)$/s', '$2', $contents);
+        $result = preg_replace('/^\s*(?:---[\s]*[\r\n]+)(.*?)(?:---[\s]*[\r\n]+)(.*?)$/s', '$2', $contents);
+
+        if ($result === null) {
+            throw new RuntimeException('An error occurred running preg_match');
+        }
+
+        return $result;
     }
 }
