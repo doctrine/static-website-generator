@@ -1,7 +1,7 @@
 {
     "name": "doctrine/static-website-generator",
     "description": "Doctrine Static Website Generator",
-    "type": "project",
+    "type": "library",
     "license": "MIT",
     "authors": [
         {
