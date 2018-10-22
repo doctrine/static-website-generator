@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Doctrine\StaticWebsiteGenerator\SourceFile;
 
 use Symfony\Component\Filesystem\Filesystem;
+use function preg_match;
 
 class SourceFileBuilder
 {
@@ -17,11 +18,12 @@ class SourceFileBuilder
     /** @var SourceFileConverter[] */
     private $converters;
 
-    /** @var string */
+    /** @var string[] */
     private $nonRenderablePatterns = [];
 
     /**
      * @param SourceFileConverter[] $converters
+     * @param string[]              $nonRenderablePatterns
      */
     public function __construct(
         SourceFileRenderer $sourceFileRenderer,
@@ -68,7 +70,7 @@ class SourceFileBuilder
 
     private function isSourceFileRenderable(SourceFile $sourceFile) : bool
     {
-        if (!$sourceFile->isTwig()) {
+        if (! $sourceFile->isTwig()) {
             return false;
         }
 

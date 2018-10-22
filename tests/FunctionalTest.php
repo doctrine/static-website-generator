@@ -46,6 +46,7 @@ use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
 use function assert;
 use function file_exists;
 use function file_get_contents;
+use function trim;
 
 class FunctionalTest extends TestCase
 {
