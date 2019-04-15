@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.2",
         "doctrine/collections": "^1.5",
         "doctrine/rst-parser": "^0.0.2",
         "doctrine/skeleton-mapper": "^0.0.1",

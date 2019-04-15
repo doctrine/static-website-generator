@@ -23,10 +23,7 @@ class ControllerProvider
         }
     }
 
-    /**
-     * @return object
-     */
-    public function getController(string $className)
+    public function getController(string $className) : object
     {
         if (! isset($this->controllers[$className])) {
             throw new InvalidArgumentException(sprintf('Could not find controller class %s', $className));
