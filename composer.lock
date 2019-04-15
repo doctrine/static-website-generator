@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a2a3cfe83c8019fea3b0ae096dfb60e0",
+    "content-hash": "3e5998e7ce1e259dbed78f5804d6cee1",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -773,31 +773,31 @@
         },
         {
             "name": "doctrine/skeleton-mapper",
-            "version": "0.0.1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/skeleton-mapper.git",
-                "reference": "02fcf9d1f36a8e4d8a9addf360664cdc762dc3f9"
+                "reference": "478c0fafcdc2df37159193b74fedaf89643891eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/skeleton-mapper/zipball/02fcf9d1f36a8e4d8a9addf360664cdc762dc3f9",
-                "reference": "02fcf9d1f36a8e4d8a9addf360664cdc762dc3f9",
+                "url": "https://api.github.com/repos/doctrine/skeleton-mapper/zipball/478c0fafcdc2df37159193b74fedaf89643891eb",
+                "reference": "478c0fafcdc2df37159193b74fedaf89643891eb",
                 "shasum": ""
             },
             "require": {
                 "doctrine/collections": "~1.5",
                 "doctrine/common": "~2.9",
                 "doctrine/instantiator": "^1.1",
-                "php": "^7.1"
+                "php": "^7.2"
             },
             "require-dev": {
-                "doctrine/coding-standard": "^5.0",
+                "doctrine/coding-standard": "^6.0",
                 "phpstan/phpstan": "^0.10",
                 "phpstan/phpstan-deprecation-rules": "^0.10",
                 "phpstan/phpstan-phpunit": "^0.10",
                 "phpstan/phpstan-strict-rules": "^0.10",
-                "phpunit/phpunit": "~7.0"
+                "phpunit/phpunit": "~8.0"
             },
             "type": "library",
             "extra": {
@@ -828,7 +828,7 @@
                 "object",
                 "persistence"
             ],
-            "time": "2018-10-17T01:58:30+00:00"
+            "time": "2019-04-15T23:41:46+00:00"
         },
         {
             "name": "erusev/parsedown",
