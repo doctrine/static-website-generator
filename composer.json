@@ -13,7 +13,7 @@
     "require": {
         "php": "^7.2",
         "doctrine/collections": "^1.5",
-        "doctrine/rst-parser": "^0.0.2",
+        "doctrine/rst-parser": "^0.0.3",
         "doctrine/skeleton-mapper": "^0.0.1",
         "erusev/parsedown": "^1.7",
         "symfony/filesystem": "^4.1",
