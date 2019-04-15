@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c5ee070d8a1a0be430bde2f10ed41264",
+    "content-hash": "a2a3cfe83c8019fea3b0ae096dfb60e0",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -710,16 +710,16 @@
         },
         {
             "name": "doctrine/rst-parser",
-            "version": "0.0.3",
+            "version": "0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/rst-parser.git",
-                "reference": "65116366e84dd3cc8b52f177f4d3df6fdac2673a"
+                "reference": "49ea41cf15b93c4ac493df3f05c49999ef661cd4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/rst-parser/zipball/65116366e84dd3cc8b52f177f4d3df6fdac2673a",
-                "reference": "65116366e84dd3cc8b52f177f4d3df6fdac2673a",
+                "url": "https://api.github.com/repos/doctrine/rst-parser/zipball/49ea41cf15b93c4ac493df3f05c49999ef661cd4",
+                "reference": "49ea41cf15b93c4ac493df3f05c49999ef661cd4",
                 "shasum": ""
             },
             "require": {
@@ -769,7 +769,7 @@
                 "reStructuredText",
                 "rst"
             ],
-            "time": "2019-04-15T19:12:27+00:00"
+            "time": "2019-04-15T19:55:14+00:00"
         },
         {
             "name": "doctrine/skeleton-mapper",
