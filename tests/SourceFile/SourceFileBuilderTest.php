@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Doctrine\StaticWebsiteGenerator\Tests\SourceFile;
 
-use Doctrine\RST\Document;
+use Doctrine\RST\Nodes\DocumentNode;
 use Doctrine\RST\Parser as RSTParser;
 use Doctrine\StaticWebsiteGenerator\SourceFile\Converters\MarkdownConverter;
 use Doctrine\StaticWebsiteGenerator\SourceFile\Converters\ReStructuredTextConverter;
@@ -83,7 +83,7 @@ class SourceFileBuilderTest extends TestCase
             ->method('getExtension')
             ->willReturn('rst');
 
-        $document = $this->createMock(Document::class);
+        $document = $this->createMock(DocumentNode::class);
 
         $this->rstParser->expects(self::once())
             ->method('parse')
@@ -127,7 +127,7 @@ class SourceFileBuilderTest extends TestCase
             ->method('getExtension')
             ->willReturn('rst');
 
-        $document = $this->createMock(Document::class);
+        $document = $this->createMock(DocumentNode::class);
 
         $this->rstParser->expects(self::once())
             ->method('parse')
