@@ -22,7 +22,8 @@ class SourceFileFilesystemReaderTest extends TestCase
     /** @var SourceFileFactory|MockObject */
     private $sourceFileFactory;
 
-    private SourceFileFilesystemReader $sourceFileFilesystemReader;
+    /** @var SourceFileFilesystemReader */
+    private $sourceFileFilesystemReader;
 
     public function testGetFilesWithoutCustomInPath(): void
     {

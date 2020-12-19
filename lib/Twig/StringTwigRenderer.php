@@ -14,10 +14,11 @@ use function md5;
 
 class StringTwigRenderer implements TwigRenderer
 {
-    private string $templatesDir;
+    /** @var string */
+    private $templatesDir;
 
     /** @var AbstractExtension[] */
-    private array $extensions;
+    private $extensions;
 
     /**
      * @param AbstractExtension[] $extensions

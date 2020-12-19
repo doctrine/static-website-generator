@@ -15,9 +15,11 @@ use function sprintf;
 
 class ControllerExecutor
 {
-    private ControllerProvider $controllerProvider;
+    /** @var ControllerProvider */
+    private $controllerProvider;
 
-    private ArgumentResolver $argumentResolver;
+    /** @var ArgumentResolver */
+    private $argumentResolver;
 
     public function __construct(
         ControllerProvider $controllerProvider,

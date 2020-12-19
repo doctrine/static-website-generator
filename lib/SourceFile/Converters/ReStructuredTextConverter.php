@@ -10,7 +10,8 @@ use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileConverter;
 
 class ReStructuredTextConverter implements SourceFileConverter
 {
-    private RSTParser $rstParser;
+    /** @var RSTParser */
+    private $rstParser;
 
     public function __construct(RSTParser $rstParser)
     {

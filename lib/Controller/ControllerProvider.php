@@ -12,7 +12,7 @@ use function sprintf;
 class ControllerProvider
 {
     /** @var object[] */
-    private array $controllers;
+    private $controllers;
 
     /**
      * @param object[] $controllers

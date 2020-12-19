@@ -12,7 +12,8 @@ use Twig_SimpleFunction;
 
 class RoutingExtension extends AbstractExtension
 {
-    private Router $router;
+    /** @var Router */
+    private $router;
 
     public function __construct(Router $router)
     {

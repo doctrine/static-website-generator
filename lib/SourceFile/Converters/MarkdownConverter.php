@@ -10,7 +10,8 @@ use Parsedown;
 
 class MarkdownConverter implements SourceFileConverter
 {
-    private Parsedown $parsedown;
+    /** @var Parsedown */
+    private $parsedown;
 
     public function __construct(Parsedown $parsedown)
     {

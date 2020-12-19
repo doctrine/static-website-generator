@@ -14,11 +14,14 @@ use function is_string;
 
 class SourceFileRouteReader implements SourceFileReader
 {
-    private Router $router;
+    /** @var Router */
+    private $router;
 
-    private RequestCollectionProvider $requestCollectionProvider;
+    /** @var RequestCollectionProvider */
+    private $requestCollectionProvider;
 
-    private SourceFileFactory $sourceFileFactory;
+    /** @var SourceFileFactory */
+    private $sourceFileFactory;
 
     public function __construct(
         Router $router,
@@ -62,7 +65,7 @@ class SourceFileRouteReader implements SourceFileReader
      */
     private function getRoutesWithProvider(): array
     {
-        return array_filter($this->router->getRouteCollection()->all(), static function (Route $route) {
+        return array_filter($this->router->getRouteCollection()->all(), static function (Route $route): bool {
             return $route->getDefault('_provider') !== null;
         });
     }

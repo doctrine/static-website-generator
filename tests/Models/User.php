@@ -11,7 +11,8 @@ use Doctrine\SkeletonMapper\ObjectManagerInterface;
 
 class User implements HydratableInterface, LoadMetadataInterface
 {
-    private string $username;
+    /** @var string */
+    private $username;
 
     public static function loadMetadata(ClassMetadataInterface $metadata): void
     {

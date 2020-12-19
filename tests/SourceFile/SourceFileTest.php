@@ -10,7 +10,8 @@ use PHPUnit\Framework\TestCase;
 
 class SourceFileTest extends TestCase
 {
-    private SourceFile $sourceFile;
+    /** @var SourceFile */
+    private $sourceFile;
 
     public function testGetSourcePath(): void
     {

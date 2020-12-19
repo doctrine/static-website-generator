@@ -18,15 +18,20 @@ use function str_replace;
 
 class SourceFileRenderer
 {
-    private ControllerExecutor $controllerExecutor;
+    /** @var ControllerExecutor */
+    private $controllerExecutor;
 
-    private TwigRenderer $twigRenderer;
+    /** @var TwigRenderer */
+    private $twigRenderer;
 
-    private Site $site;
+    /** @var Site */
+    private $site;
 
-    private string $templatesDir;
+    /** @var string */
+    private $templatesDir;
 
-    private string $sourceDir;
+    /** @var string */
+    private $sourceDir;
 
     public function __construct(
         ControllerExecutor $controllerExecutor,

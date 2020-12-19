@@ -10,15 +10,17 @@ use function preg_match;
 
 class SourceFileBuilder
 {
-    private SourceFileRenderer $sourceFileRenderer;
+    /** @var SourceFileRenderer */
+    private $sourceFileRenderer;
 
-    private Filesystem $filesystem;
+    /** @var Filesystem */
+    private $filesystem;
 
     /** @var SourceFileConverter[] */
-    private array $converters;
+    private $converters;
 
     /** @var string[] */
-    private array $nonRenderablePatterns = [];
+    private $nonRenderablePatterns = [];
 
     /**
      * @param SourceFileConverter[] $converters

@@ -7,9 +7,10 @@ namespace Doctrine\StaticWebsiteGenerator\Controller;
 class Response
 {
     /** @var mixed[] */
-    private array $parameters;
+    private $parameters;
 
-    private string $template;
+    /** @var string */
+    private $template;
 
     /**
      * @param mixed[] $parameters

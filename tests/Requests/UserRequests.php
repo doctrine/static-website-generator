@@ -11,7 +11,8 @@ use Doctrine\StaticWebsiteGenerator\Tests\Repositories\UserRepository;
 
 class UserRequests
 {
-    private UserRepository $userRepository;
+    /** @var UserRepository */
+    private $userRepository;
 
     public function __construct(UserRepository $userRepository)
     {

@@ -30,7 +30,8 @@ class SourceFileBuilderTest extends TestCase
     /** @var RSTParser|MockObject */
     private $rstParser;
 
-    private SourceFileBuilder $sourceFileBuilder;
+    /** @var SourceFileBuilder */
+    private $sourceFileBuilder;
 
     public function testBuildFileMarkdown(): void
     {

@@ -11,7 +11,8 @@ use function sprintf;
 
 class SourceFilesBuilder
 {
-    private SourceFileBuilder $sourceFileBuilder;
+    /** @var SourceFileBuilder */
+    private $sourceFileBuilder;
 
     public function __construct(
         SourceFileBuilder $sourceFileBuilder
@@ -20,6 +21,8 @@ class SourceFilesBuilder
     }
 
     /**
+     * @param SourceFiles<SourceFile> $sourceFiles
+     *
      * @throws RuntimeException
      */
     public function buildSourceFiles(SourceFiles $sourceFiles): void

@@ -7,7 +7,7 @@ namespace Doctrine\StaticWebsiteGenerator\SourceFile;
 class SourceFileRepository implements SourceFileReader
 {
     /** @var SourceFileReader[] */
-    private array $sourceFileReaders = [];
+    private $sourceFileReaders = [];
 
     /**
      * @param SourceFileReader[] $sourceFileReaders

@@ -11,9 +11,11 @@ use Symfony\Component\HttpFoundation\Request;
 
 class HomepageController
 {
-    private UserRepository $userRepository;
+    /** @var UserRepository */
+    private $userRepository;
 
-    private ResponseFactory $responseFactory;
+    /** @var ResponseFactory */
+    private $responseFactory;
 
     public function __construct(UserRepository $userRepository, ResponseFactory $responseFactory)
     {

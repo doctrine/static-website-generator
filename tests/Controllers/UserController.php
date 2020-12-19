@@ -10,9 +10,11 @@ use Doctrine\StaticWebsiteGenerator\Tests\Repositories\UserRepository;
 
 class UserController
 {
-    private UserRepository $userRepository;
+    /** @var UserRepository */
+    private $userRepository;
 
-    private ResponseFactory $responseFactory;
+    /** @var ResponseFactory */
+    private $responseFactory;
 
     public function __construct(UserRepository $userRepository, ResponseFactory $responseFactory)
     {

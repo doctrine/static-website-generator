@@ -6,20 +6,26 @@ namespace Doctrine\StaticWebsiteGenerator;
 
 class Site
 {
-    private string $title;
+    /** @var string */
+    private $title;
 
-    private string $subtitle;
+    /** @var string */
+    private $subtitle;
 
-    private string $url;
+    /** @var string */
+    private $url;
 
     /** @var string[] */
-    private array $keywords;
+    private $keywords;
 
-    private string $description;
+    /** @var string */
+    private $description;
 
-    private string $env;
+    /** @var string */
+    private $env;
 
-    private string $googleAnalyticsTrackingId;
+    /** @var string */
+    private $googleAnalyticsTrackingId;
 
     /**
      * @param string[] $keywords

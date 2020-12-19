@@ -20,11 +20,14 @@ class SourceFileFactory
 {
     private const CONVERTED_HTML_EXTENSIONS = ['md', 'rst'];
 
-    private Router $router;
+    /** @var Router */
+    private $router;
 
-    private SourceFileParametersFactory $sourceFileParametersFactory;
+    /** @var SourceFileParametersFactory */
+    private $sourceFileParametersFactory;
 
-    private string $sourceDir;
+    /** @var string */
+    private $sourceDir;
 
     public function __construct(
         Router $router,

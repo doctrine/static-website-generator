@@ -27,7 +27,8 @@ class SourceFileRendererTest extends TestCase
     /** @var Site|MockObject */
     private $site;
 
-    private SourceFileRenderer $sourceFileRenderer;
+    /** @var SourceFileRenderer */
+    private $sourceFileRenderer;
 
     public function testRenderWithContentTwigBlock(): void
     {

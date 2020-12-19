@@ -24,11 +24,14 @@ class SourceFile
 
     private const NEEDS_LAYOUT_EXTENSIONS = ['html', 'md', 'rst'];
 
-    private string $sourcePath;
+    /** @var string */
+    private $sourcePath;
 
-    private string $contents;
+    /** @var string */
+    private $contents;
 
-    private SourceFileParameters $parameters;
+    /** @var SourceFileParameters */
+    private $parameters;
 
     public function __construct(
         string $sourcePath,

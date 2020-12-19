@@ -15,7 +15,7 @@ use function sprintf;
 class RequestCollectionProvider
 {
     /** @var object[] */
-    private array $providers;
+    private $providers;
 
     /**
      * @param object[] $providers

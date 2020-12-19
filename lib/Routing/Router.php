@@ -13,18 +13,24 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
+use function assert;
 use function explode;
+use function is_array;
 use function parse_url;
 
 class Router
 {
-    private RequestContext $context;
+    /** @var RequestContext */
+    private $context;
 
-    private RouteCollection $routes;
+    /** @var RouteCollection */
+    private $routes;
 
-    private UrlMatcher $urlMatcher;
+    /** @var UrlMatcher */
+    private $urlMatcher;
 
-    private UrlGenerator $urlGenerator;
+    /** @var UrlGenerator */
+    private $urlGenerator;
 
     /**
      * @param mixed[] $routes
@@ -105,11 +111,13 @@ class Router
     {
         $url = parse_url($site->getUrl());
 
+        assert(is_array($url));
+
         return new RequestContext(
             '',
             'GET',
-            $url['host'],
-            $url['scheme'],
+            $url['host'] ?? '',
+            $url['scheme'] ?? '',
             $url['port'] ?? 80,
             443,
             '/',

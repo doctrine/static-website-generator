@@ -9,7 +9,7 @@ use function array_merge;
 class SourceFileParameters
 {
     /** @var mixed[] */
-    private array $parameters = [];
+    private $parameters = [];
 
     /**
      * @param mixed[] $parameters
