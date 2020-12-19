@@ -150,15 +150,15 @@ class FunctionalTest extends TestCase
 
         $indexContents = $this->getFileContents($buildDir, 'index.html');
 
-        self::assertContains('This is a test file.', $indexContents);
-        self::assertContains('Homepage: /index.html', $indexContents);
-        self::assertContains('Controller data: This data came from the controller', $indexContents);
-        self::assertContains('Request path info: /index.html', $indexContents);
-        self::assertContains('User: jwage', $indexContents);
-        self::assertContains('Source File URL: /index.html', $indexContents);
-        self::assertContains('Source Path: /index.md', $indexContents);
-        self::assertContains('Request Pathinfo: /index.html', $indexContents);
-        self::assertContains('Page Title: Test Title', $indexContents);
+        self::assertStringContainsString('This is a test file.', $indexContents);
+        self::assertStringContainsString('Homepage: /index.html', $indexContents);
+        self::assertStringContainsString('Controller data: This data came from the controller', $indexContents);
+        self::assertStringContainsString('Request path info: /index.html', $indexContents);
+        self::assertStringContainsString('User: jwage', $indexContents);
+        self::assertStringContainsString('Source File URL: /index.html', $indexContents);
+        self::assertStringContainsString('Source Path: /index.md', $indexContents);
+        self::assertStringContainsString('Request Pathinfo: /index.html', $indexContents);
+        self::assertStringContainsString('Page Title: Test Title', $indexContents);
 
         $apiIndexContents = $this->getFileContents($buildDir, 'api/index.html');
 
@@ -166,11 +166,11 @@ class FunctionalTest extends TestCase
 
         $jwageContents = $this->getFileContents($buildDir, 'user/jwage.html');
 
-        self::assertContains('jwage', $jwageContents);
+        self::assertStringContainsString('jwage', $jwageContents);
 
         $ocramiusContents = $this->getFileContents($buildDir, 'user/ocramius.html');
 
-        self::assertContains('ocramius', $ocramiusContents);
+        self::assertStringContainsString('ocramius', $ocramiusContents);
     }
 
     private function getFileContents(string $buildDir, string $file): string
