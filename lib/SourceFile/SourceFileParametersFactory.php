@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Doctrine\StaticWebsiteGenerator\SourceFile;
 
 use Symfony\Component\Yaml\Yaml;
+
 use function preg_match;
 
 class SourceFileParametersFactory
 {
-    public function createSourceFileParameters(string $contents) : SourceFileParameters
+    public function createSourceFileParameters(string $contents): SourceFileParameters
     {
         $parameters = $this->extractParameters($contents);
 
@@ -27,7 +28,7 @@ class SourceFileParametersFactory
     /**
      * @return mixed[]
      */
-    private function extractParameters(string $contents) : array
+    private function extractParameters(string $contents): array
     {
         $parameters = [];
 

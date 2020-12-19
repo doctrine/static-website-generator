@@ -11,11 +11,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class HomepageController
 {
-    /** @var UserRepository */
-    private $userRepository;
+    private UserRepository $userRepository;
 
-    /** @var ResponseFactory */
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
 
     public function __construct(UserRepository $userRepository, ResponseFactory $responseFactory)
     {
@@ -23,7 +21,7 @@ class HomepageController
         $this->responseFactory = $responseFactory;
     }
 
-    public function index(Request $request) : Response
+    public function index(Request $request): Response
     {
         $user = $this->userRepository->findOneByUsername('jwage');
 

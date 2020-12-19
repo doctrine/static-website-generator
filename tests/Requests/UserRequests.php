@@ -11,15 +11,14 @@ use Doctrine\StaticWebsiteGenerator\Tests\Repositories\UserRepository;
 
 class UserRequests
 {
-    /** @var UserRepository */
-    private $userRepository;
+    private UserRepository $userRepository;
 
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
 
-    public function getUsers() : RequestCollection
+    public function getUsers(): RequestCollection
     {
         /** @var User[] $users */
         $users = $this->userRepository->findAll();

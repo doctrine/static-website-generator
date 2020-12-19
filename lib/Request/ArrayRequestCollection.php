@@ -7,7 +7,7 @@ namespace Doctrine\StaticWebsiteGenerator\Request;
 class ArrayRequestCollection implements RequestCollection
 {
     /** @var mixed[] */
-    private $requests;
+    private array $requests;
 
     /**
      * @param mixed[] $requests
@@ -20,7 +20,7 @@ class ArrayRequestCollection implements RequestCollection
     /**
      * @return mixed[]
      */
-    public function getRequests() : iterable
+    public function getRequests(): iterable
     {
         return $this->requests;
     }

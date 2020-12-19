@@ -12,22 +12,19 @@ use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
+
 use function explode;
 use function parse_url;
 
 class Router
 {
-    /** @var RequestContext */
-    private $context;
+    private RequestContext $context;
 
-    /** @var RouteCollection */
-    private $routes;
+    private RouteCollection $routes;
 
-    /** @var UrlMatcher */
-    private $urlMatcher;
+    private UrlMatcher $urlMatcher;
 
-    /** @var UrlGenerator */
-    private $urlGenerator;
+    private UrlGenerator $urlGenerator;
 
     /**
      * @param mixed[] $routes
@@ -46,7 +43,7 @@ class Router
         $this->urlGenerator = new UrlGenerator($this->routes, $this->context);
     }
 
-    public function getRouteCollection() : RouteCollection
+    public function getRouteCollection(): RouteCollection
     {
         return $this->routes;
     }
@@ -54,7 +51,7 @@ class Router
     /**
      * @return mixed[]
      */
-    public function match(string $pathinfo) : ?array
+    public function match(string $pathinfo): ?array
     {
         try {
             return $this->urlMatcher->match($pathinfo);
@@ -70,16 +67,16 @@ class Router
         string $name,
         array $parameters = [],
         int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
-    ) : string {
+    ): string {
         return $this->urlGenerator->generate($name, $parameters, $referenceType);
     }
 
-    public function setContext(RequestContext $context) : void
+    public function setContext(RequestContext $context): void
     {
         $this->context = $context;
     }
 
-    public function getContext() : ?RequestContext
+    public function getContext(): ?RequestContext
     {
         return $this->context;
     }
@@ -87,7 +84,7 @@ class Router
     /**
      * @param mixed[] $routeData
      */
-    private function createRoute(array $routeData) : Route
+    private function createRoute(array $routeData): Route
     {
         if (isset($routeData['controller']) && ! isset($routeData['defaults']['_controller'])) {
             $routeData['defaults']['_controller'] = explode('::', $routeData['controller']);
@@ -104,7 +101,7 @@ class Router
         );
     }
 
-    private function createRequestContext(Site $site) : RequestContext
+    private function createRequestContext(Site $site): RequestContext
     {
         $url = parse_url($site->getUrl());
 

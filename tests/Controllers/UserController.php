@@ -10,11 +10,9 @@ use Doctrine\StaticWebsiteGenerator\Tests\Repositories\UserRepository;
 
 class UserController
 {
-    /** @var UserRepository */
-    private $userRepository;
+    private UserRepository $userRepository;
 
-    /** @var ResponseFactory */
-    private $responseFactory;
+    private ResponseFactory $responseFactory;
 
     public function __construct(UserRepository $userRepository, ResponseFactory $responseFactory)
     {
@@ -22,7 +20,7 @@ class UserController
         $this->responseFactory = $responseFactory;
     }
 
-    public function user(string $username) : Response
+    public function user(string $username): Response
     {
         $user = $this->userRepository->findOneByUsername($username);
 

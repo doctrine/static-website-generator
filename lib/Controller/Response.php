@@ -7,10 +7,9 @@ namespace Doctrine\StaticWebsiteGenerator\Controller;
 class Response
 {
     /** @var mixed[] */
-    private $parameters;
+    private array $parameters;
 
-    /** @var string */
-    private $template;
+    private string $template;
 
     /**
      * @param mixed[] $parameters
@@ -24,12 +23,12 @@ class Response
     /**
      * @return mixed[]
      */
-    public function getParameters() : array
+    public function getParameters(): array
     {
         return $this->parameters;
     }
 
-    public function getTemplate() : string
+    public function getTemplate(): string
     {
         return $this->template;
     }

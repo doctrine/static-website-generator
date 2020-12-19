@@ -9,15 +9,15 @@ use Twig\Extension\AbstractExtension;
 use Twig\Loader\ArrayLoader;
 use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
+
 use function md5;
 
 class StringTwigRenderer implements TwigRenderer
 {
-    /** @var string */
-    private $templatesDir;
+    private string $templatesDir;
 
     /** @var AbstractExtension[] */
-    private $extensions;
+    private array $extensions;
 
     /**
      * @param AbstractExtension[] $extensions
@@ -33,7 +33,7 @@ class StringTwigRenderer implements TwigRenderer
     /**
      * @param mixed[] $parameters
      */
-    public function render(string $twig, array $parameters) : string
+    public function render(string $twig, array $parameters): string
     {
         $name = md5($twig);
 

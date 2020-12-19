@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace Doctrine\StaticWebsiteGenerator\Request;
 
 use InvalidArgumentException;
+
+use function assert;
 use function call_user_func;
 use function get_class;
+use function is_callable;
 use function sprintf;
 
 class RequestCollectionProvider
 {
     /** @var object[] */
-    private $providers;
+    private array $providers;
 
     /**
      * @param object[] $providers
@@ -24,7 +27,7 @@ class RequestCollectionProvider
         }
     }
 
-    public function getRequestCollection(string $className, string $methodName) : RequestCollection
+    public function getRequestCollection(string $className, string $methodName): RequestCollection
     {
         if (! isset($this->providers[$className])) {
             throw new InvalidArgumentException(
@@ -32,8 +35,8 @@ class RequestCollectionProvider
             );
         }
 
-        /** @var callable $callable */
         $callable = [$this->providers[$className], $methodName];
+        assert(is_callable($callable));
 
         return call_user_func($callable);
     }

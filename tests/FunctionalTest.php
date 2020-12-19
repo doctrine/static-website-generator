@@ -43,6 +43,7 @@ use Parsedown;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+
 use function assert;
 use function file_exists;
 use function file_get_contents;
@@ -50,7 +51,7 @@ use function trim;
 
 class FunctionalTest extends TestCase
 {
-    public function testBuild() : void
+    public function testBuild(): void
     {
         $rootDir      = __DIR__ . '/fixtures';
         $sourceDir    = $rootDir . '/source';
@@ -61,8 +62,8 @@ class FunctionalTest extends TestCase
 
         $objectManager = $this->createObjectManager();
 
-        /** @var UserRepository $userRepository */
         $userRepository = $objectManager->getRepository(User::class);
+        assert($userRepository instanceof UserRepository);
 
         $controllerProvider = new ControllerProvider([
             HomepageController::class => new HomepageController($userRepository, $responseFactory),
@@ -172,7 +173,7 @@ class FunctionalTest extends TestCase
         self::assertContains('ocramius', $ocramiusContents);
     }
 
-    private function getFileContents(string $buildDir, string $file) : string
+    private function getFileContents(string $buildDir, string $file): string
     {
         $path = $buildDir . '/' . $file;
 
@@ -184,7 +185,7 @@ class FunctionalTest extends TestCase
         return $contents;
     }
 
-    private function createObjectManager() : ObjectManager
+    private function createObjectManager(): ObjectManager
     {
         $objectRepositoryFactory = new ObjectRepositoryFactory();
 

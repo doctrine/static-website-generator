@@ -5,21 +5,20 @@ declare(strict_types=1);
 namespace Doctrine\StaticWebsiteGenerator\SourceFile;
 
 use Symfony\Component\Filesystem\Filesystem;
+
 use function preg_match;
 
 class SourceFileBuilder
 {
-    /** @var SourceFileRenderer */
-    private $sourceFileRenderer;
+    private SourceFileRenderer $sourceFileRenderer;
 
-    /** @var Filesystem */
-    private $filesystem;
+    private Filesystem $filesystem;
 
     /** @var SourceFileConverter[] */
-    private $converters;
+    private array $converters;
 
     /** @var string[] */
-    private $nonRenderablePatterns = [];
+    private array $nonRenderablePatterns = [];
 
     /**
      * @param SourceFileConverter[] $converters
@@ -43,7 +42,7 @@ class SourceFileBuilder
         $this->nonRenderablePatterns = $nonRenderablePatterns;
     }
 
-    public function buildFile(SourceFile $sourceFile) : void
+    public function buildFile(SourceFile $sourceFile): void
     {
         $renderedFile = $this->convertSourceFile($sourceFile);
 
@@ -57,7 +56,7 @@ class SourceFileBuilder
         $this->filesystem->dumpFile($sourceFile->getParameter('writePath'), $renderedFile);
     }
 
-    private function convertSourceFile(SourceFile $sourceFile) : string
+    private function convertSourceFile(SourceFile $sourceFile): string
     {
         $extension = $sourceFile->getExtension();
 
@@ -68,7 +67,7 @@ class SourceFileBuilder
         return $sourceFile->getContents();
     }
 
-    private function isSourceFileRenderable(SourceFile $sourceFile) : bool
+    private function isSourceFileRenderable(SourceFile $sourceFile): bool
     {
         if (! $sourceFile->isTwig()) {
             return false;

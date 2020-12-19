@@ -10,30 +10,29 @@ use PHPUnit\Framework\TestCase;
 
 class SourceFileTest extends TestCase
 {
-    /** @var SourceFile */
-    private $sourceFile;
+    private SourceFile $sourceFile;
 
-    public function testGetSourcePath() : void
+    public function testGetSourcePath(): void
     {
         self::assertSame('/tmp/test.md', $this->sourceFile->getSourcePath());
     }
 
-    public function testGetUrl() : void
+    public function testGetUrl(): void
     {
         self::assertSame('/2019/01/01/test.html', $this->sourceFile->getUrl());
     }
 
-    public function testGetDate() : void
+    public function testGetDate(): void
     {
         self::assertEquals('2019-01-01', $this->sourceFile->getDate()->format('Y-m-d'));
     }
 
-    public function testGetExtension() : void
+    public function testGetExtension(): void
     {
         self::assertEquals('md', $this->sourceFile->getExtension());
     }
 
-    public function testIsTwig() : void
+    public function testIsTwig(): void
     {
         $sourceFile = new SourceFile(
             '/tmp/test.jpg',
@@ -46,7 +45,7 @@ class SourceFileTest extends TestCase
         self::assertTrue($this->sourceFile->isTwig());
     }
 
-    public function testIsLayoutNeeded() : void
+    public function testIsLayoutNeeded(): void
     {
         $sourceFile = new SourceFile(
             '/tmp/test.jpg',
@@ -59,12 +58,12 @@ class SourceFileTest extends TestCase
         self::assertTrue($this->sourceFile->isLayoutNeeded());
     }
 
-    public function testGetContents() : void
+    public function testGetContents(): void
     {
         self::assertSame('Test content.', $this->sourceFile->getContents());
     }
 
-    public function testGetParameters() : void
+    public function testGetParameters(): void
     {
         self::assertEquals(
             new SourceFileParameters(['url' => '/2019/01/01/test.html']),
@@ -72,12 +71,12 @@ class SourceFileTest extends TestCase
         );
     }
 
-    public function testGetParameter() : void
+    public function testGetParameter(): void
     {
         self::assertSame('/2019/01/01/test.html', $this->sourceFile->getParameter('url'));
     }
 
-    public function testGetRequest() : void
+    public function testGetRequest(): void
     {
         $request = $this->sourceFile->getRequest();
 
@@ -86,7 +85,7 @@ class SourceFileTest extends TestCase
         self::assertSame('/2019/01/01/test.html', $request->attributes->get('url'));
     }
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $contents = <<<CONTENTS
 ---

@@ -7,7 +7,7 @@ namespace Doctrine\StaticWebsiteGenerator\SourceFile;
 class SourceFileRepository implements SourceFileReader
 {
     /** @var SourceFileReader[] */
-    private $sourceFileReaders = [];
+    private array $sourceFileReaders = [];
 
     /**
      * @param SourceFileReader[] $sourceFileReaders
@@ -17,7 +17,7 @@ class SourceFileRepository implements SourceFileReader
         $this->sourceFileReaders = $sourceFileReaders;
     }
 
-    public function getSourceFiles(string $buildDir = '') : SourceFiles
+    public function getSourceFiles(string $buildDir = ''): SourceFiles
     {
         $sourceFiles = [];
 

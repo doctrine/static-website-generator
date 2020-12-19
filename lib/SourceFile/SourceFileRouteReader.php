@@ -7,20 +7,18 @@ namespace Doctrine\StaticWebsiteGenerator\SourceFile;
 use Doctrine\StaticWebsiteGenerator\Request\RequestCollectionProvider;
 use Doctrine\StaticWebsiteGenerator\Routing\Router;
 use Symfony\Component\Routing\Route;
+
 use function array_filter;
 use function assert;
 use function is_string;
 
 class SourceFileRouteReader implements SourceFileReader
 {
-    /** @var Router */
-    private $router;
+    private Router $router;
 
-    /** @var RequestCollectionProvider */
-    private $requestCollectionProvider;
+    private RequestCollectionProvider $requestCollectionProvider;
 
-    /** @var SourceFileFactory */
-    private $sourceFileFactory;
+    private SourceFileFactory $sourceFileFactory;
 
     public function __construct(
         Router $router,
@@ -32,7 +30,7 @@ class SourceFileRouteReader implements SourceFileReader
         $this->sourceFileFactory         = $sourceFileFactory;
     }
 
-    public function getSourceFiles(string $buildDir = '') : SourceFiles
+    public function getSourceFiles(string $buildDir = ''): SourceFiles
     {
         $sourceFiles = [];
 
@@ -62,7 +60,7 @@ class SourceFileRouteReader implements SourceFileReader
     /**
      * @return Route[]
      */
-    private function getRoutesWithProvider() : array
+    private function getRoutesWithProvider(): array
     {
         return array_filter($this->router->getRouteCollection()->all(), static function (Route $route) {
             return $route->getDefault('_provider') !== null;

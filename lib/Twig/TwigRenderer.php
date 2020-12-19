@@ -9,5 +9,5 @@ interface TwigRenderer
     /**
      * @param mixed[] $parameters
      */
-    public function render(string $twig, array $parameters) : string;
+    public function render(string $twig, array $parameters): string;
 }

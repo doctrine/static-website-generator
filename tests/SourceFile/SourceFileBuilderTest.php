@@ -30,10 +30,9 @@ class SourceFileBuilderTest extends TestCase
     /** @var RSTParser|MockObject */
     private $rstParser;
 
-    /** @var SourceFileBuilder */
-    private $sourceFileBuilder;
+    private SourceFileBuilder $sourceFileBuilder;
 
-    public function testBuildFileMarkdown() : void
+    public function testBuildFileMarkdown(): void
     {
         $sourceFile = $this->createMock(SourceFile::class);
 
@@ -71,7 +70,7 @@ class SourceFileBuilderTest extends TestCase
         $this->sourceFileBuilder->buildFile($sourceFile);
     }
 
-    public function testBuildFileRestructuredText() : void
+    public function testBuildFileRestructuredText(): void
     {
         $sourceFile = $this->createMock(SourceFile::class);
 
@@ -115,7 +114,7 @@ class SourceFileBuilderTest extends TestCase
         $this->sourceFileBuilder->buildFile($sourceFile);
     }
 
-    public function testBuildFileNoTwig() : void
+    public function testBuildFileNoTwig(): void
     {
         $sourceFile = $this->createMock(SourceFile::class);
 
@@ -157,7 +156,7 @@ class SourceFileBuilderTest extends TestCase
         $this->sourceFileBuilder->buildFile($sourceFile);
     }
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->sourceFileRenderer = $this->createMock(SourceFileRenderer::class);
         $this->filesystem         = $this->createMock(Filesystem::class);

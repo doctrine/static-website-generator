@@ -10,8 +10,7 @@ use Parsedown;
 
 class MarkdownConverter implements SourceFileConverter
 {
-    /** @var Parsedown */
-    private $parsedown;
+    private Parsedown $parsedown;
 
     public function __construct(Parsedown $parsedown)
     {
@@ -21,12 +20,12 @@ class MarkdownConverter implements SourceFileConverter
     /**
      * @return string[]
      */
-    public function getExtensions() : array
+    public function getExtensions(): array
     {
         return ['md', 'markdown'];
     }
 
-    public function convertSourceFile(SourceFile $sourceFile) : string
+    public function convertSourceFile(SourceFile $sourceFile): string
     {
         return $this->parsedown->text($sourceFile->getContents());
     }
