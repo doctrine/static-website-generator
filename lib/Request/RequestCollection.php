@@ -9,5 +9,5 @@ interface RequestCollection
     /**
      * @return mixed[]
      */
-    public function getRequests() : iterable;
+    public function getRequests(): iterable;
 }

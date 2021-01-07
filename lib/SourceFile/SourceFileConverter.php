@@ -9,7 +9,7 @@ interface SourceFileConverter
     /**
      * @return string[]
      */
-    public function getExtensions() : array;
+    public function getExtensions(): array;
 
-    public function convertSourceFile(SourceFile $sourceFile) : string;
+    public function convertSourceFile(SourceFile $sourceFile): string;
 }

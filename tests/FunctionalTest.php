@@ -43,6 +43,7 @@ use Parsedown;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolver;
+
 use function assert;
 use function file_exists;
 use function file_get_contents;
@@ -50,7 +51,7 @@ use function trim;
 
 class FunctionalTest extends TestCase
 {
-    public function testBuild() : void
+    public function testBuild(): void
     {
         $rootDir      = __DIR__ . '/fixtures';
         $sourceDir    = $rootDir . '/source';
@@ -61,8 +62,8 @@ class FunctionalTest extends TestCase
 
         $objectManager = $this->createObjectManager();
 
-        /** @var UserRepository $userRepository */
         $userRepository = $objectManager->getRepository(User::class);
+        assert($userRepository instanceof UserRepository);
 
         $controllerProvider = new ControllerProvider([
             HomepageController::class => new HomepageController($userRepository, $responseFactory),
@@ -149,15 +150,15 @@ class FunctionalTest extends TestCase
 
         $indexContents = $this->getFileContents($buildDir, 'index.html');
 
-        self::assertContains('This is a test file.', $indexContents);
-        self::assertContains('Homepage: /index.html', $indexContents);
-        self::assertContains('Controller data: This data came from the controller', $indexContents);
-        self::assertContains('Request path info: /index.html', $indexContents);
-        self::assertContains('User: jwage', $indexContents);
-        self::assertContains('Source File URL: /index.html', $indexContents);
-        self::assertContains('Source Path: /index.md', $indexContents);
-        self::assertContains('Request Pathinfo: /index.html', $indexContents);
-        self::assertContains('Page Title: Test Title', $indexContents);
+        self::assertStringContainsString('This is a test file.', $indexContents);
+        self::assertStringContainsString('Homepage: /index.html', $indexContents);
+        self::assertStringContainsString('Controller data: This data came from the controller', $indexContents);
+        self::assertStringContainsString('Request path info: /index.html', $indexContents);
+        self::assertStringContainsString('User: jwage', $indexContents);
+        self::assertStringContainsString('Source File URL: /index.html', $indexContents);
+        self::assertStringContainsString('Source Path: /index.md', $indexContents);
+        self::assertStringContainsString('Request Pathinfo: /index.html', $indexContents);
+        self::assertStringContainsString('Page Title: Test Title', $indexContents);
 
         $apiIndexContents = $this->getFileContents($buildDir, 'api/index.html');
 
@@ -165,14 +166,14 @@ class FunctionalTest extends TestCase
 
         $jwageContents = $this->getFileContents($buildDir, 'user/jwage.html');
 
-        self::assertContains('jwage', $jwageContents);
+        self::assertStringContainsString('jwage', $jwageContents);
 
         $ocramiusContents = $this->getFileContents($buildDir, 'user/ocramius.html');
 
-        self::assertContains('ocramius', $ocramiusContents);
+        self::assertStringContainsString('ocramius', $ocramiusContents);
     }
 
-    private function getFileContents(string $buildDir, string $file) : string
+    private function getFileContents(string $buildDir, string $file): string
     {
         $path = $buildDir . '/' . $file;
 
@@ -184,7 +185,7 @@ class FunctionalTest extends TestCase
         return $contents;
     }
 
-    private function createObjectManager() : ObjectManager
+    private function createObjectManager(): ObjectManager
     {
         $objectRepositoryFactory = new ObjectRepositoryFactory();
 

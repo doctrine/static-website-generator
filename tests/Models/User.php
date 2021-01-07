@@ -14,7 +14,7 @@ class User implements HydratableInterface, LoadMetadataInterface
     /** @var string */
     private $username;
 
-    public static function loadMetadata(ClassMetadataInterface $metadata) : void
+    public static function loadMetadata(ClassMetadataInterface $metadata): void
     {
         $metadata->setIdentifier(['username']);
     }
@@ -22,12 +22,12 @@ class User implements HydratableInterface, LoadMetadataInterface
     /**
      * @param mixed[] $project
      */
-    public function hydrate(array $project, ObjectManagerInterface $objectManager) : void
+    public function hydrate(array $project, ObjectManagerInterface $objectManager): void
     {
         $this->username = (string) $project['username'] ?? '';
     }
 
-    public function getUsername() : string
+    public function getUsername(): string
     {
         return $this->username;
     }

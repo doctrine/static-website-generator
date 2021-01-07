@@ -23,7 +23,7 @@ class HomepageController
         $this->responseFactory = $responseFactory;
     }
 
-    public function index(Request $request) : Response
+    public function index(Request $request): Response
     {
         $user = $this->userRepository->findOneByUsername('jwage');
 

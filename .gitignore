@@ -1,4 +1,4 @@
-/vendor
 /.phpcs-cache
+/composer.lock
 /tests/fixtures/build
-
+/vendor

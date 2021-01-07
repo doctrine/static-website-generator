@@ -22,7 +22,7 @@ class SourceFileParameters
     /**
      * @return mixed[]
      */
-    public function getAll() : array
+    public function getAll(): array
     {
         return $this->parameters;
     }
@@ -38,7 +38,7 @@ class SourceFileParameters
     /**
      * @param mixed $value
      */
-    public function setParameter(string $key, $value) : void
+    public function setParameter(string $key, $value): void
     {
         $this->parameters[$key] = $value;
     }
@@ -46,7 +46,7 @@ class SourceFileParameters
     /**
      * @param mixed[] $parameters
      */
-    public function merge(array $parameters) : void
+    public function merge(array $parameters): void
     {
         $this->parameters = array_merge($this->parameters, $parameters);
     }

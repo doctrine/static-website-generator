@@ -48,17 +48,17 @@ class Site
         $this->googleAnalyticsTrackingId = $googleAnalyticsTrackingId;
     }
 
-    public function getTitle() : string
+    public function getTitle(): string
     {
         return $this->title;
     }
 
-    public function getSubtitle() : string
+    public function getSubtitle(): string
     {
         return $this->subtitle;
     }
 
-    public function getUrl() : string
+    public function getUrl(): string
     {
         return $this->url;
     }
@@ -66,22 +66,22 @@ class Site
     /**
      * @return string[]
      */
-    public function getKeywords() : array
+    public function getKeywords(): array
     {
         return $this->keywords;
     }
 
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return $this->description;
     }
 
-    public function getEnv() : string
+    public function getEnv(): string
     {
         return $this->env;
     }
 
-    public function googleAnalyticsTrackingId() : string
+    public function googleAnalyticsTrackingId(): string
     {
         return $this->googleAnalyticsTrackingId;
     }

@@ -23,7 +23,7 @@ class RoutingExtension extends AbstractExtension
     /**
      * @return Twig_SimpleFunction[]
      */
-    public function getFunctions() : array
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('url', [$this, 'getUrl']),
@@ -34,7 +34,7 @@ class RoutingExtension extends AbstractExtension
     /**
      * @param mixed[] $parameters
      */
-    public function getUrl(string $name, array $parameters = [], bool $schemeRelative = false) : string
+    public function getUrl(string $name, array $parameters = [], bool $schemeRelative = false): string
     {
         return $this->router->generate($name, $parameters, $schemeRelative ? UrlGeneratorInterface::NETWORK_PATH : UrlGeneratorInterface::ABSOLUTE_URL);
     }
@@ -42,7 +42,7 @@ class RoutingExtension extends AbstractExtension
     /**
      * @param mixed[] $parameters
      */
-    public function getPath(string $name, array $parameters = [], bool $relative = false) : string
+    public function getPath(string $name, array $parameters = [], bool $relative = false): string
     {
         return $this->router->generate($name, $parameters, $relative ? UrlGeneratorInterface::RELATIVE_PATH : UrlGeneratorInterface::ABSOLUTE_PATH);
     }

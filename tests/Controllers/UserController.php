@@ -22,7 +22,7 @@ class UserController
         $this->responseFactory = $responseFactory;
     }
 
-    public function user(string $username) : Response
+    public function user(string $username): Response
     {
         $user = $this->userRepository->findOneByUsername($username);
 

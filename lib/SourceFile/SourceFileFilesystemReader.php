@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Doctrine\StaticWebsiteGenerator\SourceFile;
 
 use Symfony\Component\Finder\Finder;
+
 use function assert;
 use function is_string;
 
@@ -24,7 +25,10 @@ class SourceFileFilesystemReader implements SourceFileReader
         $this->sourceFileFactory = $sourceFileFactory;
     }
 
-    public function getSourceFiles(string $buildDir = '') : SourceFiles
+    /**
+     * @return SourceFiles<SourceFile>
+     */
+    public function getSourceFiles(string $buildDir = ''): SourceFiles
     {
         $sourceFiles = [];
 
@@ -41,7 +45,7 @@ class SourceFileFilesystemReader implements SourceFileReader
         return new SourceFiles($sourceFiles);
     }
 
-    private function createFinder() : Finder
+    private function createFinder(): Finder
     {
         $finder = new Finder();
 

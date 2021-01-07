@@ -30,7 +30,7 @@ class SourceFileRendererTest extends TestCase
     /** @var SourceFileRenderer */
     private $sourceFileRenderer;
 
-    public function testRenderWithContentTwigBlock() : void
+    public function testRenderWithContentTwigBlock(): void
     {
         $date                 = new DateTimeImmutable('2018-09-01');
         $sourceFile           = $this->createMock(SourceFile::class);
@@ -93,7 +93,7 @@ class SourceFileRendererTest extends TestCase
         );
     }
 
-    public function testRenderWithoutContentTwigBlock() : void
+    public function testRenderWithoutContentTwigBlock(): void
     {
         $date                 = new DateTimeImmutable('2018-09-01');
         $sourceFile           = $this->createMock(SourceFile::class);
@@ -156,7 +156,7 @@ class SourceFileRendererTest extends TestCase
         );
     }
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->controllerExecutor = $this->createMock(ControllerExecutor::class);
         $this->twigRenderer       = $this->createMock(TwigRenderer::class);

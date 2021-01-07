@@ -8,6 +8,7 @@ use Doctrine\StaticWebsiteGenerator\Controller\ControllerExecutor;
 use Doctrine\StaticWebsiteGenerator\Site;
 use Doctrine\StaticWebsiteGenerator\Twig\TwigRenderer;
 use InvalidArgumentException;
+
 use function assert;
 use function file_exists;
 use function file_get_contents;
@@ -46,7 +47,7 @@ class SourceFileRenderer
         $this->sourceDir          = $sourceDir;
     }
 
-    public function render(SourceFile $sourceFile, string $contents) : string
+    public function render(SourceFile $sourceFile, string $contents): string
     {
         $pageParameters = $this->preparePageParameters($sourceFile);
 
@@ -85,7 +86,7 @@ class SourceFileRenderer
     /**
      * @return mixed[]
      */
-    private function preparePageParameters(SourceFile $sourceFile) : array
+    private function preparePageParameters(SourceFile $sourceFile): array
     {
         return $sourceFile->getParameters()->getAll() + [
             'date' => $sourceFile->getDate(),
@@ -95,12 +96,12 @@ class SourceFileRenderer
         ];
     }
 
-    public function getSourceRelativePath(SourceFile $sourceFile) : string
+    public function getSourceRelativePath(SourceFile $sourceFile): string
     {
         return str_replace($this->sourceDir, '', $sourceFile->getSourcePath());
     }
 
-    private function prepareTemplate(SourceFile $sourceFile, string $contents) : string
+    private function prepareTemplate(SourceFile $sourceFile, string $contents): string
     {
         if ($sourceFile->isLayoutNeeded()) {
             if ($contents !== '') {

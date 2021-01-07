@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Doctrine\StaticWebsiteGenerator\SourceFile;
 
 use Doctrine\StaticWebsiteGenerator\Routing\Router;
-use const PATHINFO_EXTENSION;
+
 use function assert;
 use function file_get_contents;
 use function in_array;
@@ -13,6 +13,8 @@ use function pathinfo;
 use function str_replace;
 use function strrpos;
 use function substr;
+
+use const PATHINFO_EXTENSION;
 
 class SourceFileFactory
 {
@@ -40,7 +42,7 @@ class SourceFileFactory
     public function createSourceFileFromPath(
         string $buildDir,
         string $sourcePath
-    ) : SourceFile {
+    ): SourceFile {
         return $this->createSourceFile(
             $buildDir,
             $sourcePath,
@@ -52,7 +54,7 @@ class SourceFileFactory
         string $buildDir,
         string $sourcePath,
         string $contents = ''
-    ) : SourceFile {
+    ): SourceFile {
         $sourceFileParameters = $this->sourceFileParametersFactory
             ->createSourceFileParameters($contents);
 
@@ -78,7 +80,7 @@ class SourceFileFactory
     /**
      * @param mixed[] $parameters
      */
-    private function buildUrl(string $buildDir, string $sourcePath, array $parameters) : string
+    private function buildUrl(string $buildDir, string $sourcePath, array $parameters): string
     {
         $permalink = $parameters['permalink'] ?? '';
 
@@ -91,7 +93,7 @@ class SourceFileFactory
         return str_replace($buildDir, '', $writePath);
     }
 
-    private function buildWritePath(string $buildDir, string $sourcePath) : string
+    private function buildWritePath(string $buildDir, string $sourcePath): string
     {
         $writePath = $buildDir . str_replace($this->sourceDir, '', $sourcePath);
 
@@ -104,7 +106,7 @@ class SourceFileFactory
         return $writePath;
     }
 
-    private function getFileContents(string $path) : string
+    private function getFileContents(string $path): string
     {
         $contents = file_get_contents($path);
         assert($contents !== false);

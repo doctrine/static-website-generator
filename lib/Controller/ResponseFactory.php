@@ -9,7 +9,7 @@ class ResponseFactory
     /**
      * @param mixed[] $parameters
      */
-    public function createResponse(array $parameters, string $template = '') : Response
+    public function createResponse(array $parameters, string $template = ''): Response
     {
         return new Response($parameters, $template);
     }

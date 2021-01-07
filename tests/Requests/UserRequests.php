@@ -19,7 +19,7 @@ class UserRequests
         $this->userRepository = $userRepository;
     }
 
-    public function getUsers() : RequestCollection
+    public function getUsers(): RequestCollection
     {
         /** @var User[] $users */
         $users = $this->userRepository->findAll();

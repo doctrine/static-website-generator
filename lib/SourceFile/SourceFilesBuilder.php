@@ -6,6 +6,7 @@ namespace Doctrine\StaticWebsiteGenerator\SourceFile;
 
 use RuntimeException;
 use Throwable;
+
 use function sprintf;
 
 class SourceFilesBuilder
@@ -20,9 +21,11 @@ class SourceFilesBuilder
     }
 
     /**
+     * @param SourceFiles<SourceFile> $sourceFiles
+     *
      * @throws RuntimeException
      */
-    public function buildSourceFiles(SourceFiles $sourceFiles) : void
+    public function buildSourceFiles(SourceFiles $sourceFiles): void
     {
         foreach ($sourceFiles as $sourceFile) {
             try {

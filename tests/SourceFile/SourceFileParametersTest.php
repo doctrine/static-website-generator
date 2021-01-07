@@ -15,12 +15,12 @@ class SourceFileParametersTest extends TestCase
     /** @var SourceFileParameters */
     private $sourceFileParameters;
 
-    public function testGetAll() : void
+    public function testGetAll(): void
     {
         self::assertSame($this->parameters, $this->sourceFileParameters->getAll());
     }
 
-    public function testGetParameter() : void
+    public function testGetParameter(): void
     {
         self::assertCount(2, $this->sourceFileParameters->getAll());
         self::assertTrue($this->sourceFileParameters->getParameter('test1'));
@@ -28,7 +28,7 @@ class SourceFileParametersTest extends TestCase
         self::assertNull($this->sourceFileParameters->getParameter('test3'));
     }
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->parameters = [
             'test1' => true,

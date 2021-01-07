@@ -24,12 +24,12 @@ class Response
     /**
      * @return mixed[]
      */
-    public function getParameters() : array
+    public function getParameters(): array
     {
         return $this->parameters;
     }
 
-    public function getTemplate() : string
+    public function getTemplate(): string
     {
         return $this->template;
     }

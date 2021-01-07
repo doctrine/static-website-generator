@@ -9,6 +9,7 @@ use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileFactory;
 use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileFilesystemReader;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+
 use function assert;
 use function is_string;
 use function realpath;
@@ -24,7 +25,7 @@ class SourceFileFilesystemReaderTest extends TestCase
     /** @var SourceFileFilesystemReader */
     private $sourceFileFilesystemReader;
 
-    public function testGetFilesWithoutCustomInPath() : void
+    public function testGetFilesWithoutCustomInPath(): void
     {
         $buildDir = '/build/dir';
 
@@ -39,7 +40,7 @@ class SourceFileFilesystemReaderTest extends TestCase
         self::assertSame($sourceFile1, $sourceFiles[0]);
     }
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         $this->rootDir = realpath(__DIR__ . '/../fixtures');
         assert(is_string($this->rootDir));

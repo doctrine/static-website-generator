@@ -21,12 +21,12 @@ class MarkdownConverter implements SourceFileConverter
     /**
      * @return string[]
      */
-    public function getExtensions() : array
+    public function getExtensions(): array
     {
         return ['md', 'markdown'];
     }
 
-    public function convertSourceFile(SourceFile $sourceFile) : string
+    public function convertSourceFile(SourceFile $sourceFile): string
     {
         return $this->parsedown->text($sourceFile->getContents());
     }

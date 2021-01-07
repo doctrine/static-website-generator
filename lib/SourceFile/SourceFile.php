@@ -7,7 +7,7 @@ namespace Doctrine\StaticWebsiteGenerator\SourceFile;
 use DateTimeImmutable;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
-use const PATHINFO_EXTENSION;
+
 use function count;
 use function explode;
 use function in_array;
@@ -15,6 +15,8 @@ use function pathinfo;
 use function preg_replace;
 use function sprintf;
 use function strtotime;
+
+use const PATHINFO_EXTENSION;
 
 class SourceFile
 {
@@ -41,17 +43,17 @@ class SourceFile
         $this->parameters = $parameters;
     }
 
-    public function getSourcePath() : string
+    public function getSourcePath(): string
     {
         return $this->sourcePath;
     }
 
-    public function getUrl() : string
+    public function getUrl(): string
     {
         return (string) $this->parameters->getParameter('url');
     }
 
-    public function getDate() : DateTimeImmutable
+    public function getDate(): DateTimeImmutable
     {
         $e = explode('/', $this->getUrl());
 
@@ -68,27 +70,27 @@ class SourceFile
         return (new DateTimeImmutable())->setTimestamp($date);
     }
 
-    public function getExtension() : string
+    public function getExtension(): string
     {
         return pathinfo($this->sourcePath, PATHINFO_EXTENSION);
     }
 
-    public function isTwig() : bool
+    public function isTwig(): bool
     {
         return in_array($this->getExtension(), self::TWIG_EXTENSIONS, true);
     }
 
-    public function isLayoutNeeded() : bool
+    public function isLayoutNeeded(): bool
     {
         return in_array($this->getExtension(), self::NEEDS_LAYOUT_EXTENSIONS, true);
     }
 
-    public function getContents() : string
+    public function getContents(): string
     {
         return $this->contents;
     }
 
-    public function getParameters() : SourceFileParameters
+    public function getParameters(): SourceFileParameters
     {
         return $this->parameters;
     }
@@ -101,7 +103,7 @@ class SourceFile
         return $this->parameters->getParameter($key);
     }
 
-    public function hasController() : bool
+    public function hasController(): bool
     {
         return $this->parameters->getParameter('_controller') !== null;
     }
@@ -109,12 +111,12 @@ class SourceFile
     /**
      * @return string[]|null
      */
-    public function getController() : ?array
+    public function getController(): ?array
     {
         return $this->parameters->getParameter('_controller');
     }
 
-    public function getRequest() : Request
+    public function getRequest(): Request
     {
         $requestAttributes = $this->parameters->getAll();
 
@@ -126,7 +128,7 @@ class SourceFile
         return $request;
     }
 
-    private function stripFileParameters(string $contents) : string
+    private function stripFileParameters(string $contents): string
     {
         $result = preg_replace('/^\s*(?:---[\s]*[\r\n]+)(.*?)(?:---[\s]*[\r\n]+)(.*?)$/s', '$2', $contents);
 
