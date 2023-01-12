@@ -16,14 +16,11 @@ use function realpath;
 
 class SourceFileFilesystemReaderTest extends TestCase
 {
-    /** @var bool|string */
-    private $rootDir;
+    private bool|string $rootDir;
 
-    /** @var SourceFileFactory|MockObject */
-    private $sourceFileFactory;
+    private SourceFileFactory&MockObject $sourceFileFactory;
 
-    /** @var SourceFileFilesystemReader */
-    private $sourceFileFilesystemReader;
+    private SourceFileFilesystemReader $sourceFileFilesystemReader;
 
     public function testGetFilesWithoutCustomInPath(): void
     {
@@ -31,7 +28,7 @@ class SourceFileFilesystemReaderTest extends TestCase
 
         $sourceFile1 = $this->createMock(SourceFile::class);
 
-        $this->sourceFileFactory->expects(self::at(0))
+        $this->sourceFileFactory->expects(self::atLeastOnce())
             ->method('createSourceFileFromPath')
             ->willReturn($sourceFile1);
 
@@ -49,7 +46,7 @@ class SourceFileFilesystemReaderTest extends TestCase
 
         $this->sourceFileFilesystemReader = new SourceFileFilesystemReader(
             $this->rootDir,
-            $this->sourceFileFactory
+            $this->sourceFileFactory,
         );
     }
 }

@@ -10,17 +10,11 @@ use Parsedown;
 
 class MarkdownConverter implements SourceFileConverter
 {
-    /** @var Parsedown */
-    private $parsedown;
-
-    public function __construct(Parsedown $parsedown)
+    public function __construct(private Parsedown $parsedown)
     {
-        $this->parsedown = $parsedown;
     }
 
-    /**
-     * @return string[]
-     */
+    /** @return string[] */
     public function getExtensions(): array
     {
         return ['md', 'markdown'];

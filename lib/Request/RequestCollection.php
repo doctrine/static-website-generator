@@ -6,8 +6,6 @@ namespace Doctrine\StaticWebsiteGenerator\Request;
 
 interface RequestCollection
 {
-    /**
-     * @return mixed[]
-     */
+    /** @return mixed[] */
     public function getRequests(): iterable;
 }

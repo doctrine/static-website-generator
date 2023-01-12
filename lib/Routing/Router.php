@@ -20,21 +20,15 @@ use function parse_url;
 
 class Router
 {
-    /** @var RequestContext */
-    private $context;
+    private RequestContext $context;
 
-    /** @var RouteCollection */
-    private $routes;
+    private RouteCollection $routes;
 
-    /** @var UrlMatcher */
-    private $urlMatcher;
+    private UrlMatcher $urlMatcher;
 
-    /** @var UrlGenerator */
-    private $urlGenerator;
+    private UrlGenerator $urlGenerator;
 
-    /**
-     * @param mixed[] $routes
-     */
+    /** @param mixed[] $routes */
     public function __construct(array $routes, Site $site)
     {
         $this->context = $this->createRequestContext($site);
@@ -54,25 +48,21 @@ class Router
         return $this->routes;
     }
 
-    /**
-     * @return mixed[]
-     */
-    public function match(string $pathinfo): ?array
+    /** @return mixed[] */
+    public function match(string $pathinfo): array|null
     {
         try {
             return $this->urlMatcher->match($pathinfo);
-        } catch (ResourceNotFoundException $e) {
+        } catch (ResourceNotFoundException) {
             return null;
         }
     }
 
-    /**
-     * @param mixed[] $parameters
-     */
+    /** @param mixed[] $parameters */
     public function generate(
         string $name,
         array $parameters = [],
-        int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH
+        int $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH,
     ): string {
         return $this->urlGenerator->generate($name, $parameters, $referenceType);
     }
@@ -82,14 +72,12 @@ class Router
         $this->context = $context;
     }
 
-    public function getContext(): ?RequestContext
+    public function getContext(): RequestContext|null
     {
         return $this->context;
     }
 
-    /**
-     * @param mixed[] $routeData
-     */
+    /** @param mixed[] $routeData */
     private function createRoute(array $routeData): Route
     {
         if (isset($routeData['controller']) && ! isset($routeData['defaults']['_controller'])) {
@@ -103,7 +91,7 @@ class Router
         return new Route(
             $routeData['path'],
             $routeData['defaults'] ?? [],
-            $routeData['requirements'] ?? []
+            $routeData['requirements'] ?? [],
         );
     }
 
@@ -121,7 +109,7 @@ class Router
             $url['port'] ?? 80,
             443,
             '/',
-            ''
+            '',
         );
     }
 }

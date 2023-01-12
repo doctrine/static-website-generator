@@ -6,8 +6,6 @@ namespace Doctrine\StaticWebsiteGenerator\SourceFile;
 
 interface SourceFileReader
 {
-    /**
-     * @return SourceFiles<SourceFile>
-     */
+    /** @return SourceFiles<SourceFile> */
     public function getSourceFiles(string $buildDir = ''): SourceFiles;
 }

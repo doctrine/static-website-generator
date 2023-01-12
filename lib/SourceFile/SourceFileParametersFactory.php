@@ -25,9 +25,7 @@ class SourceFileParametersFactory
         return new SourceFileParameters($parameters);
     }
 
-    /**
-     * @return mixed[]
-     */
+    /** @return mixed[] */
     private function extractParameters(string $contents): array
     {
         $parameters = [];

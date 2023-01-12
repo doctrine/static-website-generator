@@ -15,18 +15,10 @@ use function sprintf;
 
 class ControllerExecutor
 {
-    /** @var ControllerProvider */
-    private $controllerProvider;
-
-    /** @var ArgumentResolver */
-    private $argumentResolver;
-
     public function __construct(
-        ControllerProvider $controllerProvider,
-        ArgumentResolver $argumentResolver
+        private ControllerProvider $controllerProvider,
+        private ArgumentResolver $argumentResolver,
     ) {
-        $this->controllerProvider = $controllerProvider;
-        $this->argumentResolver   = $argumentResolver;
     }
 
     public function execute(SourceFile $sourceFile): Response
@@ -46,7 +38,7 @@ class ControllerExecutor
 
         $arguments = $this->argumentResolver->getArguments(
             $sourceFile->getRequest(),
-            $callable
+            $callable,
         );
 
         $controllerResult = call_user_func_array($callable, $arguments);
@@ -55,7 +47,7 @@ class ControllerExecutor
             throw new RuntimeException(sprintf(
                 'Controller %s did not return a %s instance.',
                 $className,
-                Response::class
+                Response::class,
             ));
         }
 

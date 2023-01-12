@@ -10,10 +10,9 @@ use PHPUnit\Framework\TestCase;
 class SourceFileParametersTest extends TestCase
 {
     /** @var mixed[] */
-    private $parameters;
+    private array $parameters;
 
-    /** @var SourceFileParameters */
-    private $sourceFileParameters;
+    private SourceFileParameters $sourceFileParameters;
 
     public function testGetAll(): void
     {
@@ -36,7 +35,7 @@ class SourceFileParametersTest extends TestCase
         ];
 
         $this->sourceFileParameters = new SourceFileParameters(
-            $this->parameters
+            $this->parameters,
         );
     }
 }

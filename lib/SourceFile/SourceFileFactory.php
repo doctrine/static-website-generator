@@ -20,40 +20,28 @@ class SourceFileFactory
 {
     private const CONVERTED_HTML_EXTENSIONS = ['md', 'rst'];
 
-    /** @var Router */
-    private $router;
-
-    /** @var SourceFileParametersFactory */
-    private $sourceFileParametersFactory;
-
-    /** @var string */
-    private $sourceDir;
-
     public function __construct(
-        Router $router,
-        SourceFileParametersFactory $sourceFileParametersFactory,
-        string $sourceDir
+        private Router $router,
+        private SourceFileParametersFactory $sourceFileParametersFactory,
+        private string $sourceDir,
     ) {
-        $this->router                      = $router;
-        $this->sourceFileParametersFactory = $sourceFileParametersFactory;
-        $this->sourceDir                   = $sourceDir;
     }
 
     public function createSourceFileFromPath(
         string $buildDir,
-        string $sourcePath
+        string $sourcePath,
     ): SourceFile {
         return $this->createSourceFile(
             $buildDir,
             $sourcePath,
-            $this->getFileContents($sourcePath)
+            $this->getFileContents($sourcePath),
         );
     }
 
     public function createSourceFile(
         string $buildDir,
         string $sourcePath,
-        string $contents = ''
+        string $contents = '',
     ): SourceFile {
         $sourceFileParameters = $this->sourceFileParametersFactory
             ->createSourceFileParameters($contents);
@@ -73,13 +61,11 @@ class SourceFileFactory
         return new SourceFile(
             $sourcePath,
             $contents,
-            $sourceFileParameters
+            $sourceFileParameters,
         );
     }
 
-    /**
-     * @param mixed[] $parameters
-     */
+    /** @param mixed[] $parameters */
     private function buildUrl(string $buildDir, string $sourcePath, array $parameters): string
     {
         $permalink = $parameters['permalink'] ?? '';

@@ -6,9 +6,7 @@ namespace Doctrine\StaticWebsiteGenerator\SourceFile;
 
 interface SourceFileConverter
 {
-    /**
-     * @return string[]
-     */
+    /** @return string[] */
     public function getExtensions(): array;
 
     public function convertSourceFile(SourceFile $sourceFile): string;

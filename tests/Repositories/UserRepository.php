@@ -9,6 +9,10 @@ use Doctrine\StaticWebsiteGenerator\Tests\Models\User;
 
 use function assert;
 
+/**
+ * @template T of User
+ * @template-extends BasicObjectRepository<T>
+ */
 class UserRepository extends BasicObjectRepository
 {
     public function findOneByUsername(string $username): User

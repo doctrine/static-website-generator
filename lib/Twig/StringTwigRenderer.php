@@ -14,26 +14,14 @@ use function md5;
 
 class StringTwigRenderer implements TwigRenderer
 {
-    /** @var string */
-    private $templatesDir;
-
-    /** @var AbstractExtension[] */
-    private $extensions;
-
-    /**
-     * @param AbstractExtension[] $extensions
-     */
+    /** @param AbstractExtension[] $extensions */
     public function __construct(
-        string $templatesDir,
-        array $extensions
+        private string $templatesDir,
+        private array $extensions,
     ) {
-        $this->templatesDir = $templatesDir;
-        $this->extensions   = $extensions;
     }
 
-    /**
-     * @param mixed[] $parameters
-     */
+    /** @param mixed[] $parameters */
     public function render(string $twig, array $parameters): string
     {
         $name = md5($twig);

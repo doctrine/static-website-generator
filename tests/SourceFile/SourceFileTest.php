@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class SourceFileTest extends TestCase
 {
-    /** @var SourceFile */
-    private $sourceFile;
+    private SourceFile $sourceFile;
 
     public function testGetSourcePath(): void
     {
@@ -38,7 +37,7 @@ class SourceFileTest extends TestCase
         $sourceFile = new SourceFile(
             '/tmp/test.jpg',
             'test',
-            new SourceFileParameters(['url' => '/test.jpg'])
+            new SourceFileParameters(['url' => '/test.jpg']),
         );
 
         self::assertFalse($sourceFile->isTwig());
@@ -51,7 +50,7 @@ class SourceFileTest extends TestCase
         $sourceFile = new SourceFile(
             '/tmp/test.jpg',
             'test',
-            new SourceFileParameters(['url' => '/test.jpg'])
+            new SourceFileParameters(['url' => '/test.jpg']),
         );
 
         self::assertFalse($sourceFile->isLayoutNeeded());
@@ -68,7 +67,7 @@ class SourceFileTest extends TestCase
     {
         self::assertEquals(
             new SourceFileParameters(['url' => '/2019/01/01/test.html']),
-            $this->sourceFile->getParameters()
+            $this->sourceFile->getParameters(),
         );
     }
 
@@ -88,7 +87,7 @@ class SourceFileTest extends TestCase
 
     protected function setUp(): void
     {
-        $contents = <<<CONTENTS
+        $contents = <<<'CONTENTS'
 ---
 test: true
 ---
@@ -99,7 +98,7 @@ CONTENTS;
         $this->sourceFile = new SourceFile(
             '/tmp/test.md',
             $contents,
-            new SourceFileParameters(['url' => '/2019/01/01/test.html'])
+            new SourceFileParameters(['url' => '/2019/01/01/test.html']),
         );
     }
 }

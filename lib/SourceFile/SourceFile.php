@@ -24,23 +24,14 @@ class SourceFile
 
     private const NEEDS_LAYOUT_EXTENSIONS = ['html', 'md', 'rst'];
 
-    /** @var string */
-    private $sourcePath;
-
-    /** @var string */
-    private $contents;
-
-    /** @var SourceFileParameters */
-    private $parameters;
+    private string $contents;
 
     public function __construct(
-        string $sourcePath,
+        private string $sourcePath,
         string $contents,
-        SourceFileParameters $parameters
+        private SourceFileParameters $parameters,
     ) {
-        $this->sourcePath = $sourcePath;
-        $this->contents   = $this->stripFileParameters($contents);
-        $this->parameters = $parameters;
+        $this->contents = $this->stripFileParameters($contents);
     }
 
     public function getSourcePath(): string
@@ -95,10 +86,7 @@ class SourceFile
         return $this->parameters;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getParameter(string $key)
+    public function getParameter(string $key): mixed
     {
         return $this->parameters->getParameter($key);
     }
@@ -108,10 +96,8 @@ class SourceFile
         return $this->parameters->getParameter('_controller') !== null;
     }
 
-    /**
-     * @return string[]|null
-     */
-    public function getController(): ?array
+    /** @return string[]|null */
+    public function getController(): array|null
     {
         return $this->parameters->getParameter('_controller');
     }

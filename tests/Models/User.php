@@ -11,20 +11,17 @@ use Doctrine\SkeletonMapper\ObjectManagerInterface;
 
 class User implements HydratableInterface, LoadMetadataInterface
 {
-    /** @var string */
-    private $username;
+    private string $username;
 
     public static function loadMetadata(ClassMetadataInterface $metadata): void
     {
         $metadata->setIdentifier(['username']);
     }
 
-    /**
-     * @param mixed[] $project
-     */
+    /** @param mixed[] $project */
     public function hydrate(array $project, ObjectManagerInterface $objectManager): void
     {
-        $this->username = (string) $project['username'] ?? '';
+        $this->username = (string) ($project['username'] ?? '');
     }
 
     public function getUsername(): string

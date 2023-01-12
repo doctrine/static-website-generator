@@ -18,20 +18,15 @@ use Symfony\Component\Filesystem\Filesystem;
 
 class SourceFileBuilderTest extends TestCase
 {
-    /** @var SourceFileRenderer|MockObject */
-    private $sourceFileRenderer;
+    private SourceFileRenderer&MockObject $sourceFileRenderer;
 
-    /** @var Filesystem|MockObject */
-    private $filesystem;
+    private Filesystem&MockObject $filesystem;
 
-    /** @var Parsedown|MockObject */
-    private $parsedown;
+    private Parsedown&MockObject $parsedown;
 
-    /** @var RSTParser|MockObject */
-    private $rstParser;
+    private RSTParser&MockObject $rstParser;
 
-    /** @var SourceFileBuilder */
-    private $sourceFileBuilder;
+    private SourceFileBuilder $sourceFileBuilder;
 
     public function testBuildFileMarkdown(): void
     {
@@ -171,7 +166,7 @@ class SourceFileBuilderTest extends TestCase
                 new MarkdownConverter($this->parsedown),
                 new ReStructuredTextConverter($this->rstParser),
             ],
-            []
+            [],
         );
     }
 }

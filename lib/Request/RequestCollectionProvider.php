@@ -8,22 +8,19 @@ use InvalidArgumentException;
 
 use function assert;
 use function call_user_func;
-use function get_class;
 use function is_callable;
 use function sprintf;
 
 class RequestCollectionProvider
 {
     /** @var object[] */
-    private $providers;
+    private array $providers;
 
-    /**
-     * @param object[] $providers
-     */
+    /** @param object[] $providers */
     public function __construct(array $providers)
     {
         foreach ($providers as $provider) {
-            $this->providers[get_class($provider)] = $provider;
+            $this->providers[$provider::class] = $provider;
         }
     }
 
@@ -31,7 +28,7 @@ class RequestCollectionProvider
     {
         if (! isset($this->providers[$className])) {
             throw new InvalidArgumentException(
-                sprintf('Could not find request collection provider for class named %s', $className)
+                sprintf('Could not find request collection provider for class named %s', $className),
             );
         }
 

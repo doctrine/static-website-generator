@@ -18,17 +18,13 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SourceFileRendererTest extends TestCase
 {
-    /** @var ControllerExecutor|MockObject */
-    private $controllerExecutor;
+    private ControllerExecutor&MockObject $controllerExecutor;
 
-    /** @var TwigRenderer|MockObject */
-    private $twigRenderer;
+    private TwigRenderer&MockObject $twigRenderer;
 
-    /** @var Site|MockObject */
-    private $site;
+    private Site&MockObject $site;
 
-    /** @var SourceFileRenderer */
-    private $sourceFileRenderer;
+    private SourceFileRenderer $sourceFileRenderer;
 
     public function testRenderWithContentTwigBlock(): void
     {
@@ -89,7 +85,7 @@ class SourceFileRendererTest extends TestCase
 
         $this->sourceFileRenderer->render(
             $sourceFile,
-            $contents
+            $contents,
         );
     }
 
@@ -152,7 +148,7 @@ class SourceFileRendererTest extends TestCase
 
         $this->sourceFileRenderer->render(
             $sourceFile,
-            $contents
+            $contents,
         );
     }
 
@@ -167,7 +163,7 @@ class SourceFileRendererTest extends TestCase
             $this->twigRenderer,
             $this->site,
             '/test/templates',
-            '/test/source'
+            '/test/source',
         );
     }
 }

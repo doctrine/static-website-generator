@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Doctrine\StaticWebsiteGenerator\Tests;
 
 use Doctrine\Common\EventManager;
+use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\RST\Parser as RSTParser;
 use Doctrine\SkeletonMapper\DataSource\DataSourceObjectDataRepository;
 use Doctrine\SkeletonMapper\Hydrator\BasicObjectHydrator;
@@ -14,6 +15,7 @@ use Doctrine\SkeletonMapper\ObjectFactory;
 use Doctrine\SkeletonMapper\ObjectIdentityMap;
 use Doctrine\SkeletonMapper\ObjectManager;
 use Doctrine\SkeletonMapper\ObjectRepository\ObjectRepositoryFactory;
+use Doctrine\SkeletonMapper\ObjectRepository\ObjectRepositoryInterface;
 use Doctrine\SkeletonMapper\Persister\ObjectPersisterFactory;
 use Doctrine\StaticWebsiteGenerator\Controller\ControllerExecutor;
 use Doctrine\StaticWebsiteGenerator\Controller\ControllerProvider;
@@ -80,7 +82,7 @@ class FunctionalTest extends TestCase
             [],
             '',
             'test',
-            ''
+            '',
         );
 
         $routes = [
@@ -109,7 +111,7 @@ class FunctionalTest extends TestCase
             $twigRenderer,
             $site,
             $templatesDir,
-            $sourceDir
+            $sourceDir,
         );
 
         $filesystem = new Filesystem();
@@ -125,7 +127,7 @@ class FunctionalTest extends TestCase
                 new MarkdownConverter($parsedown),
                 new ReStructuredTextConverter($rstParser),
             ],
-            ['/\/api\//']
+            ['/\/api\//'],
         );
 
         $sourceFileParametersFactory = new SourceFileParametersFactory();
@@ -191,8 +193,9 @@ class FunctionalTest extends TestCase
 
         $objectPersisterFactory = new ObjectPersisterFactory();
 
+        /** @var \Doctrine\Persistence\Mapping\ClassMetadataFactory<ClassMetadata<object>> $classMetadataFactory */
         $classMetadataFactory = new ClassMetadataFactory(
-            new ClassMetadataInstantiator()
+            new ClassMetadataInstantiator(),
         );
 
         $objectIdentityMap = new ObjectIdentityMap($objectRepositoryFactory);
@@ -204,20 +207,22 @@ class FunctionalTest extends TestCase
             $objectPersisterFactory,
             $objectIdentityMap,
             $classMetadataFactory,
-            $eventManager
+            $eventManager,
         );
 
         $objectFactory  = new ObjectFactory();
         $objectHydrator = new BasicObjectHydrator($objectManager);
-
-        $objectRepositoryFactory->addObjectRepository(User::class, new UserRepository(
+        /** @var ObjectRepositoryInterface<object> $userRepository */
+        $userRepository = new UserRepository(
             $objectManager,
             new DataSourceObjectDataRepository($objectManager, new Users(), User::class),
             $objectFactory,
             $objectHydrator,
             $eventManager,
-            User::class
-        ));
+            User::class,
+        );
+
+        $objectRepositoryFactory->addObjectRepository(User::class, $userRepository);
 
         return $objectManager;
     }

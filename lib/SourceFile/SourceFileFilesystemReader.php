@@ -11,23 +11,13 @@ use function is_string;
 
 class SourceFileFilesystemReader implements SourceFileReader
 {
-    /** @var string */
-    private $sourceDir;
-
-    /** @var SourceFileFactory */
-    private $sourceFileFactory;
-
     public function __construct(
-        string $sourceDir,
-        SourceFileFactory $sourceFileFactory
+        private string $sourceDir,
+        private SourceFileFactory $sourceFileFactory,
     ) {
-        $this->sourceDir         = $sourceDir;
-        $this->sourceFileFactory = $sourceFileFactory;
     }
 
-    /**
-     * @return SourceFiles<SourceFile>
-     */
+    /** @return SourceFiles<SourceFile> */
     public function getSourceFiles(string $buildDir = ''): SourceFiles
     {
         $sourceFiles = [];
@@ -38,7 +28,7 @@ class SourceFileFilesystemReader implements SourceFileReader
 
             $sourceFiles[] = $this->sourceFileFactory->createSourceFileFromPath(
                 $buildDir,
-                $sourcePath
+                $sourcePath,
             );
         }
 
