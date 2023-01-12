@@ -14,12 +14,12 @@ on:
 jobs:
   static-analysis-phpstan:
     name: "Static Analysis with PHPStan"
-    runs-on: "ubuntu-20.04"
+    runs-on: "ubuntu-latest"
 
     strategy:
       matrix:
         php-version:
-          - "7.4"
+          - "8.1"
 
     steps:
       - name: "Checkout code"
