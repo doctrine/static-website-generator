@@ -25,7 +25,7 @@ jobs:
           php-version: "8.1"
 
       - name: "Install dependencies with Composer"
-        uses: "ramsey/composer-install@v1"
+        uses: "ramsey/composer-install@v2"
         with:
           composer-options: "--prefer-dist --no-progress --no-suggest"
 
