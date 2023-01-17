@@ -14,7 +14,7 @@
         "php": "^8.1",
         "doctrine/collections": "^1.8",
         "doctrine/rst-parser": "^0.5.3",
-        "doctrine/skeleton-mapper": "2.0.x-dev",
+        "doctrine/skeleton-mapper": "^2.0",
         "erusev/parsedown": "^1.7",
         "symfony/filesystem": "^6.0",
         "symfony/finder": "^6.0",
