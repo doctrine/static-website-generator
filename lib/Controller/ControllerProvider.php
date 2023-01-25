@@ -6,21 +6,18 @@ namespace Doctrine\StaticWebsiteGenerator\Controller;
 
 use InvalidArgumentException;
 
-use function get_class;
 use function sprintf;
 
 class ControllerProvider
 {
     /** @var object[] */
-    private $controllers;
+    private array $controllers;
 
-    /**
-     * @param object[] $controllers
-     */
+    /** @param object[] $controllers */
     public function __construct(array $controllers)
     {
         foreach ($controllers as $controller) {
-            $this->controllers[get_class($controller)] = $controller;
+            $this->controllers[$controller::class] = $controller;
         }
     }
 

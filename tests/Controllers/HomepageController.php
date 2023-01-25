@@ -6,21 +6,15 @@ namespace Doctrine\StaticWebsiteGenerator\Tests\Controllers;
 
 use Doctrine\StaticWebsiteGenerator\Controller\Response;
 use Doctrine\StaticWebsiteGenerator\Controller\ResponseFactory;
+use Doctrine\StaticWebsiteGenerator\Tests\Models\User;
 use Doctrine\StaticWebsiteGenerator\Tests\Repositories\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 
 class HomepageController
 {
-    /** @var UserRepository */
-    private $userRepository;
-
-    /** @var ResponseFactory */
-    private $responseFactory;
-
-    public function __construct(UserRepository $userRepository, ResponseFactory $responseFactory)
+    /** @param UserRepository<User> $userRepository */
+    public function __construct(private UserRepository $userRepository, private ResponseFactory $responseFactory)
     {
-        $this->userRepository  = $userRepository;
-        $this->responseFactory = $responseFactory;
     }
 
     public function index(Request $request): Response

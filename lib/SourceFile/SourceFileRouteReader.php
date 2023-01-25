@@ -14,23 +14,11 @@ use function is_string;
 
 class SourceFileRouteReader implements SourceFileReader
 {
-    /** @var Router */
-    private $router;
-
-    /** @var RequestCollectionProvider */
-    private $requestCollectionProvider;
-
-    /** @var SourceFileFactory */
-    private $sourceFileFactory;
-
     public function __construct(
-        Router $router,
-        RequestCollectionProvider $requestCollectionProvider,
-        SourceFileFactory $sourceFileFactory
+        private Router $router,
+        private RequestCollectionProvider $requestCollectionProvider,
+        private SourceFileFactory $sourceFileFactory,
     ) {
-        $this->router                    = $router;
-        $this->requestCollectionProvider = $requestCollectionProvider;
-        $this->sourceFileFactory         = $sourceFileFactory;
     }
 
     public function getSourceFiles(string $buildDir = ''): SourceFiles
@@ -44,7 +32,7 @@ class SourceFileRouteReader implements SourceFileReader
 
             $requestCollection = $this->requestCollectionProvider->getRequestCollection(
                 $className,
-                $methodName
+                $methodName,
             );
 
             foreach ($requestCollection->getRequests() as $request) {
@@ -52,7 +40,7 @@ class SourceFileRouteReader implements SourceFileReader
 
                 $sourceFiles[] = $this->sourceFileFactory->createSourceFile(
                     $buildDir,
-                    $sourcePath
+                    $sourcePath,
                 );
             }
         }
@@ -60,9 +48,7 @@ class SourceFileRouteReader implements SourceFileReader
         return new SourceFiles($sourceFiles);
     }
 
-    /**
-     * @return Route[]
-     */
+    /** @return Route[] */
     private function getRoutesWithProvider(): array
     {
         return array_filter($this->router->getRouteCollection()->all(), static function (Route $route): bool {

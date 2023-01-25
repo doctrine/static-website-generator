@@ -8,9 +8,7 @@ use Doctrine\SkeletonMapper\DataSource\DataSource;
 
 class Users implements DataSource
 {
-    /**
-     * @return mixed[][]
-     */
+    /** @return mixed[][] */
     public function getSourceRows(): array
     {
         return [

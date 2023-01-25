@@ -8,44 +8,28 @@ use function array_merge;
 
 class SourceFileParameters
 {
-    /** @var mixed[] */
-    private $parameters = [];
-
-    /**
-     * @param mixed[] $parameters
-     */
-    public function __construct(array $parameters)
+    /** @param mixed[] $parameters */
+    public function __construct(private array $parameters = [])
     {
-        $this->parameters = $parameters;
     }
 
-    /**
-     * @return mixed[]
-     */
+    /** @return mixed[] */
     public function getAll(): array
     {
         return $this->parameters;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getParameter(string $key)
+    public function getParameter(string $key): mixed
     {
         return $this->parameters[$key] ?? null;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function setParameter(string $key, $value): void
+    public function setParameter(string $key, mixed $value): void
     {
         $this->parameters[$key] = $value;
     }
 
-    /**
-     * @param mixed[] $parameters
-     */
+    /** @param mixed[] $parameters */
     public function merge(array $parameters): void
     {
         $this->parameters = array_merge($this->parameters, $parameters);

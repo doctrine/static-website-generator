@@ -9,14 +9,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use function assert;
 use function strpos;
 
-/**
- * @template-extends ArrayCollection<int, SourceFile>
- */
+/** @template-extends ArrayCollection<int, SourceFile> */
 class SourceFiles extends ArrayCollection
 {
-    /**
-     * @return SourceFiles<SourceFile>
-     */
+    /** @return SourceFiles<SourceFile> */
     public function in(string $path): self
     {
         $sourceFiles = $this->filter(static function (SourceFile $sourceFile) use ($path): bool {

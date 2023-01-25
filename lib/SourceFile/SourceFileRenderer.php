@@ -18,33 +18,13 @@ use function str_replace;
 
 class SourceFileRenderer
 {
-    /** @var ControllerExecutor */
-    private $controllerExecutor;
-
-    /** @var TwigRenderer */
-    private $twigRenderer;
-
-    /** @var Site */
-    private $site;
-
-    /** @var string */
-    private $templatesDir;
-
-    /** @var string */
-    private $sourceDir;
-
     public function __construct(
-        ControllerExecutor $controllerExecutor,
-        TwigRenderer $twigRenderer,
-        Site $site,
-        string $templatesDir,
-        string $sourceDir
+        private ControllerExecutor $controllerExecutor,
+        private TwigRenderer $twigRenderer,
+        private Site $site,
+        private string $templatesDir,
+        private string $sourceDir,
     ) {
-        $this->controllerExecutor = $controllerExecutor;
-        $this->twigRenderer       = $twigRenderer;
-        $this->site               = $site;
-        $this->templatesDir       = $templatesDir;
-        $this->sourceDir          = $sourceDir;
     }
 
     public function render(SourceFile $sourceFile, string $contents): string
@@ -68,7 +48,7 @@ class SourceFileRenderer
 
                 if (! file_exists($templatePath)) {
                     throw new InvalidArgumentException(
-                        sprintf('Could not find template "%s"', $controllerTemplate)
+                        sprintf('Could not find template "%s"', $controllerTemplate),
                     );
                 }
 
@@ -83,9 +63,7 @@ class SourceFileRenderer
         return $this->twigRenderer->render($template, $parameters);
     }
 
-    /**
-     * @return mixed[]
-     */
+    /** @return mixed[] */
     private function preparePageParameters(SourceFile $sourceFile): array
     {
         return $sourceFile->getParameters()->getAll() + [

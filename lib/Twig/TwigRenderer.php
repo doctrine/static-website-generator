@@ -6,8 +6,6 @@ namespace Doctrine\StaticWebsiteGenerator\Twig;
 
 interface TwigRenderer
 {
-    /**
-     * @param mixed[] $parameters
-     */
+    /** @param mixed[] $parameters */
     public function render(string $twig, array $parameters): string;
 }

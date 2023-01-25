@@ -6,46 +6,16 @@ namespace Doctrine\StaticWebsiteGenerator;
 
 class Site
 {
-    /** @var string */
-    private $title;
-
-    /** @var string */
-    private $subtitle;
-
-    /** @var string */
-    private $url;
-
-    /** @var string[] */
-    private $keywords;
-
-    /** @var string */
-    private $description;
-
-    /** @var string */
-    private $env;
-
-    /** @var string */
-    private $googleAnalyticsTrackingId;
-
-    /**
-     * @param string[] $keywords
-     */
+    /** @param string[] $keywords */
     public function __construct(
-        string $title,
-        string $subtitle,
-        string $url,
-        array $keywords,
-        string $description,
-        string $env,
-        string $googleAnalyticsTrackingId
+        private string $title,
+        private string $subtitle,
+        private string $url,
+        private array $keywords,
+        private string $description,
+        private string $env,
+        private string $googleAnalyticsTrackingId,
     ) {
-        $this->title                     = $title;
-        $this->subtitle                  = $subtitle;
-        $this->url                       = $url;
-        $this->keywords                  = $keywords;
-        $this->description               = $description;
-        $this->env                       = $env;
-        $this->googleAnalyticsTrackingId = $googleAnalyticsTrackingId;
     }
 
     public function getTitle(): string
@@ -63,9 +33,7 @@ class Site
         return $this->url;
     }
 
-    /**
-     * @return string[]
-     */
+    /** @return string[] */
     public function getKeywords(): array
     {
         return $this->keywords;

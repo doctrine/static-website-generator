@@ -11,12 +11,9 @@ use Doctrine\StaticWebsiteGenerator\Tests\Repositories\UserRepository;
 
 class UserRequests
 {
-    /** @var UserRepository */
-    private $userRepository;
-
-    public function __construct(UserRepository $userRepository)
+    /** @param UserRepository<User> $userRepository */
+    public function __construct(private UserRepository $userRepository)
     {
-        $this->userRepository = $userRepository;
     }
 
     public function getUsers(): RequestCollection

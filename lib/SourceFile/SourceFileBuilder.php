@@ -10,38 +10,24 @@ use function preg_match;
 
 class SourceFileBuilder
 {
-    /** @var SourceFileRenderer */
-    private $sourceFileRenderer;
-
-    /** @var Filesystem */
-    private $filesystem;
-
     /** @var SourceFileConverter[] */
-    private $converters;
-
-    /** @var string[] */
-    private $nonRenderablePatterns = [];
+    private array $converters;
 
     /**
      * @param SourceFileConverter[] $converters
      * @param string[]              $nonRenderablePatterns
      */
     public function __construct(
-        SourceFileRenderer $sourceFileRenderer,
-        Filesystem $filesystem,
+        private SourceFileRenderer $sourceFileRenderer,
+        private Filesystem $filesystem,
         array $converters,
-        array $nonRenderablePatterns
+        private array $nonRenderablePatterns = [],
     ) {
-        $this->sourceFileRenderer = $sourceFileRenderer;
-        $this->filesystem         = $filesystem;
-
         foreach ($converters as $converter) {
             foreach ($converter->getExtensions() as $extension) {
                 $this->converters[$extension] = $converter;
             }
         }
-
-        $this->nonRenderablePatterns = $nonRenderablePatterns;
     }
 
     public function buildFile(SourceFile $sourceFile): void
@@ -51,7 +37,7 @@ class SourceFileBuilder
         if ($this->isSourceFileRenderable($sourceFile)) {
             $renderedFile = $this->sourceFileRenderer->render(
                 $sourceFile,
-                $renderedFile
+                $renderedFile,
             );
         }
 

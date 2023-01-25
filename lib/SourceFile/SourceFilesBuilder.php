@@ -11,13 +11,9 @@ use function sprintf;
 
 class SourceFilesBuilder
 {
-    /** @var SourceFileBuilder */
-    private $sourceFileBuilder;
-
     public function __construct(
-        SourceFileBuilder $sourceFileBuilder
+        private SourceFileBuilder $sourceFileBuilder,
     ) {
-        $this->sourceFileBuilder = $sourceFileBuilder;
     }
 
     /**
@@ -34,7 +30,7 @@ class SourceFilesBuilder
                 throw new RuntimeException(sprintf(
                     'Failed building file "%s" with error "%s',
                     $sourceFile->getSourcePath(),
-                    $e->getMessage() . "\n\n" . $e->getTraceAsString()
+                    $e->getMessage() . "\n\n" . $e->getTraceAsString(),
                 ));
             }
         }
