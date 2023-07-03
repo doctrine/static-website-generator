@@ -27,11 +27,11 @@ class SourceFilesBuilder
             try {
                 $this->sourceFileBuilder->buildFile($sourceFile);
             } catch (Throwable $e) {
-                throw new RuntimeException(sprintf(
+                throw new RuntimeException(message: sprintf(
                     'Failed building file "%s" with error "%s',
                     $sourceFile->getSourcePath(),
                     $e->getMessage() . "\n\n" . $e->getTraceAsString(),
-                ));
+                ), previous: $e);
             }
         }
     }
