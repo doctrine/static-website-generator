@@ -28,8 +28,6 @@ class SourceFilesBuilder
             try {
                 $this->sourceFileBuilder->buildFile($sourceFile);
             } catch (SyntaxError $e) {
-                $source = $e->getSourceContext();
-
                 throw new RuntimeException(message: sprintf(
                     <<<'EXCEPTION'
                     Failed building file "%s" from "%s", error on line %d:
