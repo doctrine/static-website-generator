@@ -12,7 +12,7 @@
     ],
     "require": {
         "php": "^8.1",
-        "doctrine/collections": "^1.8",
+        "doctrine/collections": "^1.8|^2.2",
         "doctrine/rst-parser": "^0.5.3",
         "erusev/parsedown": "^1.7",
         "symfony/filesystem": "^6.0",
