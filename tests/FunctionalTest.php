@@ -4,19 +4,7 @@ declare(strict_types=1);
 
 namespace Doctrine\StaticWebsiteGenerator\Tests;
 
-use Doctrine\Common\EventManager;
-use Doctrine\Persistence\Mapping\ClassMetadata;
 use Doctrine\RST\Parser as RSTParser;
-use Doctrine\SkeletonMapper\DataSource\DataSourceObjectDataRepository;
-use Doctrine\SkeletonMapper\Hydrator\BasicObjectHydrator;
-use Doctrine\SkeletonMapper\Mapping\ClassMetadataFactory;
-use Doctrine\SkeletonMapper\Mapping\ClassMetadataInstantiator;
-use Doctrine\SkeletonMapper\ObjectFactory;
-use Doctrine\SkeletonMapper\ObjectIdentityMap;
-use Doctrine\SkeletonMapper\ObjectManager;
-use Doctrine\SkeletonMapper\ObjectRepository\ObjectRepositoryFactory;
-use Doctrine\SkeletonMapper\ObjectRepository\ObjectRepositoryInterface;
-use Doctrine\SkeletonMapper\Persister\ObjectPersisterFactory;
 use Doctrine\StaticWebsiteGenerator\Controller\ControllerExecutor;
 use Doctrine\StaticWebsiteGenerator\Controller\ControllerProvider;
 use Doctrine\StaticWebsiteGenerator\Controller\ResponseFactory;
@@ -35,7 +23,6 @@ use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFileRouteReader;
 use Doctrine\StaticWebsiteGenerator\SourceFile\SourceFilesBuilder;
 use Doctrine\StaticWebsiteGenerator\Tests\Controllers\HomepageController;
 use Doctrine\StaticWebsiteGenerator\Tests\Controllers\UserController;
-use Doctrine\StaticWebsiteGenerator\Tests\DataSources\Users;
 use Doctrine\StaticWebsiteGenerator\Tests\Models\User;
 use Doctrine\StaticWebsiteGenerator\Tests\Repositories\UserRepository;
 use Doctrine\StaticWebsiteGenerator\Tests\Requests\UserRequests;
@@ -62,10 +49,10 @@ class FunctionalTest extends TestCase
 
         $responseFactory = new ResponseFactory();
 
-        $objectManager = $this->createObjectManager();
+        $user1 = new User('jwage');
+        $user2 = new User('ocramius');
 
-        $userRepository = $objectManager->getRepository(User::class);
-        assert($userRepository instanceof UserRepository);
+        $userRepository = new UserRepository([$user1, $user2]);
 
         $controllerProvider = new ControllerProvider([
             HomepageController::class => new HomepageController($userRepository, $responseFactory),
@@ -185,45 +172,5 @@ class FunctionalTest extends TestCase
         assert($contents !== false);
 
         return $contents;
-    }
-
-    private function createObjectManager(): ObjectManager
-    {
-        $objectRepositoryFactory = new ObjectRepositoryFactory();
-
-        $objectPersisterFactory = new ObjectPersisterFactory();
-
-        /** @var \Doctrine\Persistence\Mapping\ClassMetadataFactory<ClassMetadata<object>> $classMetadataFactory */
-        $classMetadataFactory = new ClassMetadataFactory(
-            new ClassMetadataInstantiator(),
-        );
-
-        $objectIdentityMap = new ObjectIdentityMap($objectRepositoryFactory);
-
-        $eventManager = new EventManager();
-
-        $objectManager = new ObjectManager(
-            $objectRepositoryFactory,
-            $objectPersisterFactory,
-            $objectIdentityMap,
-            $classMetadataFactory,
-            $eventManager,
-        );
-
-        $objectFactory  = new ObjectFactory();
-        $objectHydrator = new BasicObjectHydrator($objectManager);
-        /** @var ObjectRepositoryInterface<object> $userRepository */
-        $userRepository = new UserRepository(
-            $objectManager,
-            new DataSourceObjectDataRepository($objectManager, new Users(), User::class),
-            $objectFactory,
-            $objectHydrator,
-            $eventManager,
-            User::class,
-        );
-
-        $objectRepositoryFactory->addObjectRepository(User::class, $userRepository);
-
-        return $objectManager;
     }
 }
