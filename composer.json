@@ -24,7 +24,6 @@
     },
     "require-dev": {
         "doctrine/coding-standard": "^12.0",
-        "doctrine/skeleton-mapper": "^2.0",
         "phpstan/phpstan": "^1.9",
         "phpstan/phpstan-deprecation-rules": "^1.1",
         "phpstan/phpstan-phpunit": "^1.3",
